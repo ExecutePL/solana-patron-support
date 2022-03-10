@@ -30,6 +30,9 @@ To build and run this app locally, you'll need:
 
     Use [solfaucet][3] to airdrop SOL to the customer wallet.
 
+    #### 5. Airdrop USDC to customer wallet
+
+    Use [dummyspl][4] to airdrop SOL to the customer wallet.
     > You'll need SOL in the customer wallet to pay for the goods/services + transaction fees
 
  </details>
@@ -38,21 +41,9 @@ To build and run this app locally, you'll need:
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Clone the repository
-
-#### With Git
-```shell
-git clone https://github.com/solana-labs/solana-pay.git
-```
-
-#### With Github CLI
-```shell
-gh repo clone solana-labs/solana-pay
-```
 
 ### Install dependencies
 ```shell
-cd solana-pay/point-of-sale
 yarn install
 ```
 
@@ -119,7 +110,13 @@ https://<YOUR DEPLOYMENT URL>?recipient=<YOUR WALLET ADDRESS>&label=Your+Store+N
 
 The Solana Pay Point of Sale app is open source and available under the Apache License, Version 2.0. See the [LICENSE](./LICENSE) file for more info.
 
+## Contributors
+
+- Marek [MarekZ](https://github.com/katakumby)
+- Please everyone add commit with your git link
+
 <!-- Links -->
 
 [1]: https://help.phantom.app/hc/en-us/articles/4406388623251-How-to-create-a-new-wallet
 [3]: https://solfaucet.com/
+[4]: https://spl-token-faucet.com/

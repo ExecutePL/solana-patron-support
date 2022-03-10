@@ -5,7 +5,7 @@ import { TorusWalletAdapter } from '@solana/wallet-adapter-torus';
 import { PublicKey } from '@solana/web3.js';
 import React, { FC, useMemo } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
-import { DEVNET_ENDPOINT } from '../../utils/constants';
+import { DEVNET_ENDPOINT,DEVNET_DUMMY_MINT } from '../../utils/constants';
 import { ConfigProvider } from '../contexts/ConfigProvider';
 import { FullscreenProvider } from '../contexts/FullscreenProvider';
 import { PaymentProvider } from '../contexts/PaymentProvider';
@@ -17,7 +17,7 @@ import * as css from './RootRoute.module.pcss';
 
 export const RootRoute: FC = () => {
     // If you're testing without a phone, set this to true to allow a browser-based wallet connection to be used
-    const connectWallet = false;
+    const connectWallet = true;
     const wallets = useMemo(
         () => (connectWallet ? [new PhantomWalletAdapter(), new TorusWalletAdapter()] : []),
         [connectWallet]
@@ -50,11 +50,12 @@ export const RootRoute: FC = () => {
                             <WalletModalProvider>
                                 <ConfigProvider
                                     recipient={recipient}
+                                    splToken={DEVNET_DUMMY_MINT}
                                     label={label}
-                                    symbol="SOL"
+                                    symbol="USDC"
                                     icon={<SOLIcon />}
-                                    decimals={9}
-                                    minDecimals={1}
+                                    decimals={6}
+                                    minDecimals={2}
                                     connectWallet={connectWallet}
                                 >
                                     <TransactionsProvider>
