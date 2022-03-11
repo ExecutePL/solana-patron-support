@@ -11,7 +11,7 @@ import { PoweredBy } from '../sections/PoweredBy';
 import { QRCode } from '../sections/QRCode';
 import * as css from './PendingRoute.module.pcss';
 import BigNumber from "bignumber.js";
-
+import { loadPoolInfo, PoolTransactions } from '@project-serum/pool';
 export const PendingRoute: FC = () => {
     const { symbol, connectWallet,splToken,recipient } = useConfig();
     const { amount, reset } = usePayment();
@@ -21,6 +21,12 @@ export const PendingRoute: FC = () => {
     const { connection } = useConnection();
 
     const onClick = async  function(){
+
+        let poolInfo = await loadPoolInfo(connection, new PublicKey('8YnCv62yA1WXuReeYqBFjT7DZBH2A8uJt5HfHPfR7wtK'));
+        console.log(poolInfo.state);
+
+        if(1==1)return;
+
         if (!publicKey || !amount){
             console.log('WalletNotConnectedError');
             console.log(amount);
