@@ -113,6 +113,7 @@ The Solana Pay Point of Sale app is open source and available under the Apache L
 ## Contributors
 
 - Marek [MarekZ](https://github.com/katakumby)
+- Bruno [brunocisowski](https://github.com/brunocisowski)
 - Please everyone add commit with your git link
 
 <!-- Links -->
