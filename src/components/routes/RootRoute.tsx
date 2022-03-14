@@ -13,6 +13,8 @@ import { ThemeProvider } from '../contexts/ThemeProvider';
 import { TransactionsProvider } from '../contexts/TransactionsProvider';
 import { SolanaPayLogo } from '../images/SolanaPayLogo';
 import { SOLIcon } from '../images/SOLIcon';
+import { Navbar } from '../sections/Navbar';
+import { ProjectsList } from '../sections/ProjectsList';
 import * as css from './RootRoute.module.pcss';
 
 export const RootRoute: FC = () => {
@@ -68,9 +70,10 @@ export const RootRoute: FC = () => {
                         </WalletProvider>
                     </ConnectionProvider>
                 ) : (
-                    <div className={css.logo}>
-                        <SolanaPayLogo width={240} height={88} />
-                    </div>
+                    <>
+                        <Navbar />
+                        <ProjectsList />
+                    </>
                 )}
             </FullscreenProvider>
         </ThemeProvider>
