@@ -19,6 +19,7 @@ model Organization {
   total_raised  Int                       @default(0)
   target_raised Int
   adress        String                    @db.VarChar(45)
+  type          String
   createdAt     DateTime                  @default(now())
   updatedAt     DateTime                  @updatedAt
   transactions  Transaction[]
