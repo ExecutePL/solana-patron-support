@@ -2,6 +2,7 @@
     width:100%;
     max-width:690px;
     color:#ffffff;
+    position:relative;
 }
 .title{
     font-size:48px;
@@ -19,4 +20,14 @@
   justify-content: space-between ;
   align-items: center;
   margin-bottom: 20px;
+}
+.button{
+    position: absolute;
+    bottom:-70px;    
+}
+@media (min-width: 768px) {
+    .button{
+        position: relative;
+        bottom:auto;    
+    }
 }

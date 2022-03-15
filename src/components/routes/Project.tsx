@@ -13,7 +13,7 @@ export const Project = () => {
 
     return (
         <div className={css.container}>
-            <Link to='/' className={css.allProjectsLick}><BackIcon />All Projects</Link>
+            <Link to='/' className={css.allProjectsLink}><BackIcon />All Projects</Link>
             <BaseContainer 
                 title={project?.title} 
                 containerContent={

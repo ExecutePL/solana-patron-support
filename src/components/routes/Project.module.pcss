@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   align-content:center;
+  padding:15px;
   
 }
 .content{
@@ -30,7 +31,7 @@
   padding-top: 30px;
   margin-bottom: 30px;
 }
-.allProjectsLick{
+.allProjectsLink{
     color: #fff;
     text-decoration:none;
     display:flex;
@@ -39,8 +40,8 @@
     padding:10px 20px;
     border-radius:20px;
     position:absolute;
-    top:40px;
-    left:80px;
+    top:15px;
+    left:15px;
 }
 .verifiedStatus {
     position: absolute;
@@ -54,5 +55,11 @@
         font-size: 14px;
         text-transform: uppercase;
         margin-left: 8px;
+    }
+}
+@media (min-width: 768px) {
+    .allProjectsLink{
+      top:40px;
+      left:80px;
     }
 }
