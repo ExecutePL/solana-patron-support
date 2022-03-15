@@ -10,21 +10,19 @@ export const ProjectsList: FC = () => {
             <ul>
                 {Projects.map(({ id, thumbnail, title, desc, verified }) => (
                     <Link to={`/project/${id}`} key={id}>
-                        <a className="">
-                            <li key={id}>
-                                {verified ? (
-                                    <div className={css.verifiedStatus}>
-                                        <img src={verifiedIcon} />
-                                        <span>verified</span>
-                                    </div>
-                                ) : null}
-                                <div className={css.projectThumbnail}>
-                                    <img src={thumbnail} alt={title} />
+                        <li key={id}>
+                            {verified ? (
+                                <div className={css.verifiedStatus}>
+                                    <img src={verifiedIcon} />
+                                    <span>verified</span>
                                 </div>
-                                <h3>{title}</h3>
-                                <p className={css.projectDescription}>{desc}</p>
-                            </li>
-                        </a>
+                            ) : null}
+                            <div className={css.projectThumbnail}>
+                                <img src={thumbnail} alt={title} />
+                            </div>
+                            <h3>{title}</h3>
+                            <p className={css.projectDescription}>{desc}</p>
+                        </li>
                     </Link>
                 ))}
             </ul>
@@ -33,12 +31,12 @@ export const ProjectsList: FC = () => {
 };
 
 type Project = {
-    id: number,
-    thumbnail: string,
-    title: string,
-    desc: string,
-    verified: boolean
-}
+    id: number;
+    thumbnail: string;
+    title: string;
+    desc: string;
+    verified: boolean;
+};
 
 export const Projects: Project[] = [
     { id: 1, thumbnail: project1, title: 'Project 1', desc: 'Lorem ipsum', verified: true },
