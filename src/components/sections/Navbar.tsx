@@ -1,23 +1,19 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import * as css from './Navbar.module.pcss';
 import logo from '../images/logo.svg';
 import { Link } from 'react-router-dom';
 import { ConnectWalletButton } from '../buttons/ConnectWallet';
-import { useConfig } from '../../hooks/useConfig';
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { useWalletModal, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { DEVNET_ENDPOINT } from '../../utils/constants';
+import { ConnectionProvider, useConnection, useWallet, WalletProvider } from '@solana/wallet-adapter-react';
+import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
+import { TorusWalletAdapter } from '@solana/wallet-adapter-torus';
 export const Navbar: FC = () => {
-    const { connectWallet } = useConfig();
-    const { publicKey } = useWallet();
-    const { setVisible } = useWalletModal();
-
-    useEffect(() => {
-        console.log(connectWallet);
-        if (connectWallet && !publicKey) {
-            setVisible(true);
-        }
-    }, [connectWallet, publicKey, setVisible]);
-
+    const connectWallet = true;
+    const wallets = useMemo(
+        () => (connectWallet ? [new PhantomWalletAdapter(), new TorusWalletAdapter()] : []),
+        [connectWallet]
+    );
     return (
         <nav>
             <div className={css.navbarContainer}>
@@ -34,8 +30,11 @@ export const Navbar: FC = () => {
                     </ul>
                 </div>
                 <div className={css.connectWalletButton}>
-                    <ConnectWalletButton />
-                    {connectWallet ? <WalletMultiButton /> : null}
+                    <ConnectionProvider endpoint={DEVNET_ENDPOINT}>
+                        <WalletProvider wallets={wallets} autoConnect={connectWallet}>
+                            <WalletModalProvider>{connectWallet ? <WalletMultiButton /> : null}</WalletModalProvider>
+                        </WalletProvider>
+                    </ConnectionProvider>
                 </div>
             </div>
         </nav>

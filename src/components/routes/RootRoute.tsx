@@ -73,13 +73,7 @@ export const RootRoute: FC = () => {
                         </WalletProvider>
                     </ConnectionProvider>
                 ) : (
-                    <ConnectionProvider endpoint={DEVNET_ENDPOINT}>
-                        <WalletProvider wallets={wallets} autoConnect={connectWallet}>
-                            <WalletModalProvider>
-                                <Home />
-                            </WalletModalProvider>
-                        </WalletProvider>
-                    </ConnectionProvider>
+                    <Home />
                 )}
             </FullscreenProvider>
         </ThemeProvider>
