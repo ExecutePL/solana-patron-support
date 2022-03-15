@@ -17,6 +17,7 @@ import { Footer } from '../sections/Footer';
 import { HeroSlider } from '../sections/HeroSlider';
 import { Navbar } from '../sections/Navbar';
 import { ProjectsList } from '../sections/ProjectsList';
+import { Home } from './Home';
 import * as css from './RootRoute.module.pcss';
 
 export const RootRoute: FC = () => {
@@ -72,12 +73,7 @@ export const RootRoute: FC = () => {
                         </WalletProvider>
                     </ConnectionProvider>
                 ) : (
-                    <>
-                        <Navbar />
-                        <HeroSlider />
-                        <ProjectsList />
-                        <Footer />
-                    </>
+                    <Home />
                 )}
             </FullscreenProvider>
         </ThemeProvider>
