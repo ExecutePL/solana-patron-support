@@ -9,7 +9,7 @@ export const ProjectsList: FC = () => {
         <div className={css.projectsListContainer}>
             <ul>
                 {Projects.map(({ id, thumbnail, title, desc, verified }) => (
-                    <Link to="">
+                    <Link to={`/project/${id}`} key={id}>
                         <a className="">
                             <li key={id}>
                                 {verified ? (
@@ -32,7 +32,15 @@ export const ProjectsList: FC = () => {
     );
 };
 
-const Projects: any[] = [
+type Project = {
+    id: number,
+    thumbnail: string,
+    title: string,
+    desc: string,
+    verified: boolean
+}
+
+export const Projects: Project[] = [
     { id: 1, thumbnail: project1, title: 'Project 1', desc: 'Lorem ipsum', verified: true },
     { id: 2, thumbnail: project2, title: 'Project 2', desc: 'Lorem ipsum', verified: false },
     { id: 3, thumbnail: project1, title: 'Project 3', desc: 'Lorem ipsum', verified: false },
