@@ -4,6 +4,7 @@ import { useLinkWithQuery } from '../hooks/useLinkWithQuery';
 import { ConfirmedRoute } from './routes/ConfirmedRoute';
 import { Home } from './routes/Home';
 import { NewRoute } from './routes/NewRoute';
+import { Project } from './routes/Project';
 import { PendingRoute } from './routes/PendingRoute';
 import { RootRoute } from './routes/RootRoute';
 import { TransactionsRoute } from './routes/TransactionsRoute';
@@ -20,6 +21,7 @@ export const Router: FC = () => {
                     <Route path="transactions" element={<TransactionsRoute />} />
                 </Route>
                 <Route path="home" element={<Home />} />
+                <Route path="/project/:id" element={<Project />} />
             </Routes>
         </BrowserRouter>
     );
