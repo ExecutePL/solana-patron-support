@@ -1,5 +1,5 @@
 {
-    "include": ["src", "types"],
+    "include": ["src", "types", "src/custom.d.ts"],
     "exclude": ["node_modules"],
     "compilerOptions": {
         "noEmit": true,
@@ -12,5 +12,6 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "typeRoots": ["node_modules/@types"]
+        
     }
 }

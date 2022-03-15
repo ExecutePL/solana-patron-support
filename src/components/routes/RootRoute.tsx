@@ -5,7 +5,7 @@ import { TorusWalletAdapter } from '@solana/wallet-adapter-torus';
 import { PublicKey } from '@solana/web3.js';
 import React, { FC, useMemo } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
-import { DEVNET_ENDPOINT,DEVNET_DUMMY_MINT } from '../../utils/constants';
+import { DEVNET_ENDPOINT, DEVNET_DUMMY_MINT } from '../../utils/constants';
 import { ConfigProvider } from '../contexts/ConfigProvider';
 import { FullscreenProvider } from '../contexts/FullscreenProvider';
 import { PaymentProvider } from '../contexts/PaymentProvider';
@@ -13,6 +13,11 @@ import { ThemeProvider } from '../contexts/ThemeProvider';
 import { TransactionsProvider } from '../contexts/TransactionsProvider';
 import { SolanaPayLogo } from '../images/SolanaPayLogo';
 import { SOLIcon } from '../images/SOLIcon';
+import { Footer } from '../sections/Footer';
+import { HeroSlider } from '../sections/HeroSlider';
+import { Navbar } from '../sections/Navbar';
+import { ProjectsList } from '../sections/ProjectsList';
+import { Home } from './Home';
 import * as css from './RootRoute.module.pcss';
 
 export const RootRoute: FC = () => {
@@ -68,9 +73,7 @@ export const RootRoute: FC = () => {
                         </WalletProvider>
                     </ConnectionProvider>
                 ) : (
-                    <div className={css.logo}>
-                        <SolanaPayLogo width={240} height={88} />
-                    </div>
+                    <Home />
                 )}
             </FullscreenProvider>
         </ThemeProvider>
