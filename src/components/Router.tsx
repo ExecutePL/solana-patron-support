@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useLinkWithQuery } from '../hooks/useLinkWithQuery';
 import { ConfirmedRoute } from './routes/ConfirmedRoute';
+import { Home } from './routes/Home';
 import { NewRoute } from './routes/NewRoute';
 import { PendingRoute } from './routes/PendingRoute';
 import { RootRoute } from './routes/RootRoute';
@@ -18,6 +19,7 @@ export const Router: FC = () => {
                     <Route path="confirmed" element={<ConfirmedRoute />} />
                     <Route path="transactions" element={<TransactionsRoute />} />
                 </Route>
+                <Route path="home" element={<Home />} />
             </Routes>
         </BrowserRouter>
     );
