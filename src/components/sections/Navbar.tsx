@@ -1,20 +1,24 @@
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC,  useMemo, useState } from 'react';
 import * as css from './Navbar.module.pcss';
 import logo from '../images/logo.svg';
 import { Link } from 'react-router-dom';
-import { ConnectWalletButton } from '../buttons/ConnectWallet';
 import { DEVNET_ENDPOINT } from '../../utils/constants';
-import { ConnectionProvider, useConnection, useWallet, WalletProvider } from '@solana/wallet-adapter-react';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import { TorusWalletAdapter } from '@solana/wallet-adapter-torus';
+import { Button } from '../buttons/Button';
+import { Popup } from '../popup/Popup';
+import { StartOwnProject } from './StartOwnProject';
 export const Navbar: FC = () => {
     const connectWallet = true;
     const wallets = useMemo(
         () => (connectWallet ? [new PhantomWalletAdapter(), new TorusWalletAdapter()] : []),
         [connectWallet]
     );
+    const [isStartPopupOpened, setIsStartPopupOpened] = useState<boolean>(false);
     return (
+        <>
         <nav>
             <div className={css.navbarContainer}>
                 <div className={css.logo}>
@@ -29,14 +33,25 @@ export const Navbar: FC = () => {
                         <li>Contact</li>
                     </ul>
                 </div>
-                <div className={css.connectWalletButton}>
-                    <ConnectionProvider endpoint={DEVNET_ENDPOINT}>
-                        <WalletProvider wallets={wallets} autoConnect={connectWallet}>
-                            <WalletModalProvider>{connectWallet ? <WalletMultiButton /> : null}</WalletModalProvider>
-                        </WalletProvider>
-                    </ConnectionProvider>
+                <div className={css.buttons}>
+                    <Button onClick={()=>setIsStartPopupOpened(true)}>+ Start Own Project</Button>
+                    <div className={css.connectWalletButton}>
+                        <ConnectionProvider endpoint={DEVNET_ENDPOINT}>
+                            <WalletProvider wallets={wallets} autoConnect={connectWallet}>
+                                <WalletModalProvider>{connectWallet ? <WalletMultiButton /> : null}</WalletModalProvider>
+                            </WalletProvider>
+                        </ConnectionProvider>
+                    </div>
                 </div>
             </div>
         </nav>
+        <Popup 
+            title="Start Own Project" 
+            isPopupOpened={isStartPopupOpened} 
+            content={<StartOwnProject 
+            onCancleClick={()=>setIsStartPopupOpened(false)}/>} 
+            onClose={()=>setIsStartPopupOpened(false)}
+        />
+        </>
     );
 };
