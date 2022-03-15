@@ -6,14 +6,13 @@ import { ConnectWalletButton } from '../buttons/ConnectWallet';
 import { useConfig } from '../../hooks/useConfig';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { createTransaction } from '@solana/pay';
-import { usePayment } from '../../hooks/usePayment';
 export const Navbar: FC = () => {
     const { connectWallet } = useConfig();
     const { publicKey } = useWallet();
     const { setVisible } = useWalletModal();
 
     useEffect(() => {
+        console.log(connectWallet);
         if (connectWallet && !publicKey) {
             setVisible(true);
         }
@@ -42,6 +41,3 @@ export const Navbar: FC = () => {
         </nav>
     );
 };
-function setVisible(arg0: boolean) {
-    throw new Error('Function not implemented.');
-}
