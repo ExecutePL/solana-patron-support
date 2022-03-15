@@ -10,7 +10,6 @@ export const ProjectsList: FC = () => {
             <ul>
                 {Projects.map(({ id, thumbnail, title, desc, verified }) => (
                     <Link to={`/project/${id}`} key={id}>
-                        <a className="">
                             <li key={id}>
                                 {verified ? (
                                     <div className={css.verifiedStatus}>
@@ -24,7 +23,6 @@ export const ProjectsList: FC = () => {
                                 <h3>{title}</h3>
                                 <p className={css.projectDescription}>{desc}</p>
                             </li>
-                        </a>
                     </Link>
                 ))}
             </ul>
