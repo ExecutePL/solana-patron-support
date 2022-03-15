@@ -9,22 +9,20 @@ export const ProjectsList: FC = () => {
         <div className={css.projectsListContainer}>
             <ul>
                 {Projects.map(({ id, thumbnail, title, desc, verified }) => (
-                    <Link to="">
-                        <a className="">
-                            <li key={id}>
-                                {verified ? (
-                                    <div className={css.verifiedStatus}>
-                                        <img src={verifiedIcon} />
-                                        <span>verified</span>
-                                    </div>
-                                ) : null}
-                                <div className={css.projectThumbnail}>
-                                    <img src={thumbnail} alt={title} />
+                    <Link key={id} to="">
+                        <li>
+                            {verified ? (
+                                <div className={css.verifiedStatus}>
+                                    <img src={verifiedIcon} />
+                                    <span>verified</span>
                                 </div>
-                                <h3>{title}</h3>
-                                <p className={css.projectDescription}>{desc}</p>
-                            </li>
-                        </a>
+                            ) : null}
+                            <div className={css.projectThumbnail}>
+                                <img src={thumbnail} alt={title} />
+                            </div>
+                            <h3>{title}</h3>
+                            <p className={css.projectDescription}>{desc}</p>
+                        </li>
                     </Link>
                 ))}
             </ul>
