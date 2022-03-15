@@ -13,6 +13,7 @@ import { ThemeProvider } from '../contexts/ThemeProvider';
 import { TransactionsProvider } from '../contexts/TransactionsProvider';
 import { SolanaPayLogo } from '../images/SolanaPayLogo';
 import { SOLIcon } from '../images/SOLIcon';
+import { Footer } from '../sections/Footer';
 import { Navbar } from '../sections/Navbar';
 import { ProjectsList } from '../sections/ProjectsList';
 import * as css from './RootRoute.module.pcss';
@@ -73,6 +74,7 @@ export const RootRoute: FC = () => {
                     <>
                         <Navbar />
                         <ProjectsList />
+                        <Footer />
                     </>
                 )}
             </FullscreenProvider>
