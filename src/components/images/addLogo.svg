@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="55" viewBox="0 0 64 55">
+  <g id="Group_7836" data-name="Group 7836" transform="translate(-1129 -310)">
+    <text id="add_logo" data-name="add logo" transform="translate(1129 361)" fill="rgba(255,255,255,0.38)" font-size="16" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">add logo</tspan></text>
+    <g id="Icon" transform="translate(1147 310.162)">
+      <rect id="Area" width="31" height="31" transform="translate(0 -0.162)" fill="#fcfcfc" opacity="0"/>
+      <g id="Icon-2" data-name="Icon" transform="translate(3.855 3.855)">
+        <rect id="Rect" width="23.129" height="23.129" rx="2" transform="translate(0 0)" fill="none" stroke="#7679a3" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667"/>
+        <circle id="Path" cx="1.927" cy="1.927" r="1.927" transform="translate(5.14 5.14)" fill="none" stroke="#7679a3" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667"/>
+        <path id="Path-2" data-name="Path" d="M24.725,14.758,18.3,8.333,4.167,22.468" transform="translate(-1.597 0.661)" fill="none" stroke="#7679a3" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667"/>
+      </g>
+    </g>
+  </g>
+</svg>
