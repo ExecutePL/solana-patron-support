@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id            Int                       @id @default(autoincrement())
+  uuid          String                    @unique
+  name          String                    @db.VarChar(255)
+  description   String?
+  foto_src      String?
+  total_raised  Int                       @default(0)
+  target_raised Int
+  adress        String                    @db.VarChar(45)
+  createdAt     DateTime                  @default(now())
+  updatedAt     DateTime                  @updatedAt
+  transactions  Transaction[]
+  currencies    Organization_currencies[]
+  socials       Social_medias[]
+}
+
+model Social_medias {
+  id             Int          @id @default(autoincrement())
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId Int          @unique
+  twitter        String?      @db.VarChar(255)
+  facebook       String?      @db.VarChar(255)
+  instagram      String?      @db.VarChar(255)
+  discord        String?      @db.VarChar(255)
+  telegram       String?      @db.VarChar(255)
+}
+
+model Currency {
+  id            Int                       @id @default(autoincrement())
+  name          String                    @db.VarChar(255)
+  symbol        String                    @db.VarChar(8)
+  decimals      Int
+  min_decimals  Int                       @default(0)
+  adress        String                    @db.VarChar(45)
+  foto_src      String?
+  spl           Boolean                   @default(false)
+  collateral    Boolean                   @default(false)
+  organizations Organization_currencies[]
+  transactions  Transaction[]
+}
+
+model Transaction {
+  id             Int          @id @default(autoincrement())
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId Int
+  amount         Int
+  currency       Currency     @relation(fields: [currencyId], references: [id])
+  currencyId     Int
+  donator_adress String       @db.VarChar(45)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model Organization_currencies {
+  id             Int          @id @default(autoincrement())
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId Int
+  currency       Currency     @relation(fields: [currencyId], references: [id])
+  currencyId     Int
+}

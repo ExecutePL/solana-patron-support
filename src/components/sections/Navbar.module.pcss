@@ -1,0 +1,38 @@
+.navbarContainer {
+    display: inline-block;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    flex: 1;
+}
+.menuElements {
+    display: flex;
+    flex: 1;
+    & ul {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        justify-content: space-around;
+        & li {
+            color: #fff;
+            text-transform: uppercase;
+            border-right: 1px rgba(255, 255, 255, 0.3) solid;
+            padding: 15px 50px;
+        }
+        & li:last-child {
+            border-right: none;
+        }
+    }
+}
+.connectWalletButton {
+    flex: 1;
+    & > div {
+        float: right;
+    }
+}
