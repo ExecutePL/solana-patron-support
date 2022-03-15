@@ -4,8 +4,19 @@ import addLogoIcon from '../images/addLogo.svg';
 
 export const NewProjectForm = () => {
     const [formValues, setFormValues] = useState<ProjectFormValues | null>(null);
-
-
+const createProject = () =>{
+    fetch("https://solana-patron.herokuapp.com/create/organization", {
+        method: "POST",
+        body: JSON.stringify({
+            formValues
+        }),
+        headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        },
+    }).then((response) => {
+        if (response.status == 200) alert("Project created successfully");
+    });
+}
     return (
         <form className={css.form}>
             <label htmlFor='logo' className={css.fileLabel}>
