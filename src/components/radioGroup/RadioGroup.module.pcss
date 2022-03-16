@@ -1,0 +1,69 @@
+.radioButtonContainer{
+    width:60px;
+    height:32px;
+ }
+ .radioButton{
+     position:absolute;
+     width:32px;
+     height:32px;
+     border: 2px solid rgba(255,255,255,0.3);
+     border-radius:50%;
+ }
+ .selectedRadioButton{
+     border: 2px solid rgba(255,255,255,1);
+ }
+ .selectedRadioButton:after{
+     content: '';
+     position:absolute;
+     width: 12px;
+     height: 12px;
+     background-color:#14F195;
+     border-radius:50%;
+     left:27%;
+     top:27%;
+ }
+ .selected{
+     width: 12px;
+     height: 12px;
+     background-color:#14F195;
+     border-radius:50%;
+ }
+ .button{
+    position:relative;
+    background:#010748;
+    min-height: auto;
+    height: 100%;
+    border-radius: 15px;
+    display:flex;
+    align-items: flex-start;
+    text-align:left;
+    padding: 20px;
+    gap: 30px;
+    margin-top: 20px;
+    width:100%;
+}
+.selectedItemButton{
+    background: linear-gradient(to right, #5e21d2, #1f63e1);
+}
+.title{
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+.description{
+    margin-top:5px;
+    font-size:16px;
+    line-height:22px;
+    color: rgba(255, 255, 255, 0.5)
+}
+.typeList{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+@media (min-width: 768px) {
+    .button{
+        gap: 20px;
+    }
+}
