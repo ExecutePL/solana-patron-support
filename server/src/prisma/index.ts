@@ -6,7 +6,25 @@ const prisma = new PrismaClient();
 export const getOrganization = async () => {
   return await prisma.organization.findMany({
     select: {
+      uuid: true,
       name: true,
+      description: true,
+      foto_src: true,
+      total_raised: true,
+      target_raised: true,
+      adress: true,
+      type: true,
+      verified: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+};
+
+export const getSingleOrganization = async (uuid: string) => {
+  return await prisma.organization.findUnique({
+    where: {
+      uuid,
     },
   });
 };
@@ -60,6 +78,10 @@ export const getSocial_medias = async () => {
     select: {
       organizationId: true,
       twitter: true,
+      facebook: true,
+      instagram: true,
+      discord: true,
+      telegram: true,
     },
   });
 };
@@ -127,6 +149,7 @@ export const getTransaction = async () => {
       donator_adress: true,
       organizationId: true,
       currencyId: true,
+      createdAt: true,
     },
   });
 };
