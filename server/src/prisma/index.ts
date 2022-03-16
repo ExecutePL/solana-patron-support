@@ -26,6 +26,28 @@ export const getSingleOrganization = async (uuid: string) => {
     where: {
       uuid,
     },
+    select: {
+      uuid: true,
+      name: true,
+      description: true,
+      foto_src: true,
+      total_raised: true,
+      target_raised: true,
+      adress: true,
+      type: true,
+      verified: true,
+      createdAt: true,
+      updatedAt: true,
+      socials: {
+        select: {
+          twitter: true,
+          facebook: true,
+          instagram: true,
+          discord: true,
+          telegram: true,
+        },
+      },
+    },
   });
 };
 
