@@ -148,7 +148,9 @@ export const NewProjectForm = ({projectType} : NewProjectProps) => {
                 selectName="currency" 
                 defaultOption='- Select currenies -' 
                 label='Currencies: ' 
-                handleSelectedValuesChange={(selectedOptions)=>handleSelectedCurrencies(selectedOptions)} />
+                handleSelectedValuesChange={(selectedOptions)=>handleSelectedCurrencies(selectedOptions)} 
+                isMultiple
+            />
             <Button type="submit" buttonClassName={css.createButton}>Create</Button>
         </form>
         

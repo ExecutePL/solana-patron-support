@@ -12,7 +12,7 @@ import { Donation, DonationType } from '../sections/Donation';
 export const Project = () => {
     const params = useParams();
     const project = Projects.find((project)=>project.id.toString() === params.id);
-    const [isDonatePopupOpened, setIsDonatePopupOpened] = useState<boolean>(true);
+    const [isDonatePopupOpened, setIsDonatePopupOpened] = useState<boolean>(false);
     const [selectedDonationType, setSelectedDonationType] = useState<DonationType>('one-time');
 
     return (

@@ -13,11 +13,12 @@ interface SelectProps {
     selectName:string;
     label?:string;
     handleSelectedValuesChange:(selectedOptions:any)=>void;
+    isMultiple?:boolean;
 }
 
-export const Select = ({options, selectName, label, handleSelectedValuesChange}:SelectProps) => {
+export const Select = ({options, selectName, label, handleSelectedValuesChange, isMultiple}:SelectProps) => {
     const [selectedOptions, setSelectedOptions] = useState<any>();
-    const [selectedValues, setSelectedValues] = useState<string[]>([])
+    const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
 
     useEffect(()=>{
@@ -31,7 +32,8 @@ export const Select = ({options, selectName, label, handleSelectedValuesChange}:
 
     const handleSelectChange = (selectedOption:string) => {
         const checkedOption = options.find((option)=>option.name === selectedOption)
-        if(selectedOptions){
+        if(isMultiple){
+            if(selectedOptions){
             const selectedOption = selectedOptions.find((option:Option) => option === checkedOption);
             if(selectedOption){
                 const filter = selectedOptions.filter((value:Option)=>value!=selectedOption);
@@ -41,13 +43,17 @@ export const Select = ({options, selectName, label, handleSelectedValuesChange}:
             }
         }else{
             setSelectedOptions([checkedOption]);
-        } 
+        }
+        }else {
+            setSelectedOptions([checkedOption])
+        }
+         
     }
     return (
         <div className={css.container}>
             {label && <label htmlFor={selectName} className={css.title}>{label}</label>}
             <div className={css.selectedOptionsContainer}><span className={css.selectedOptions}>{selectedValues ?  selectedValues : 'please, select currency'}</span></div>
-            <select name={selectName} id={selectName} className={css.select} onChange={(e)=>handleSelectChange(e.target.value)} >
+            <select name={selectName} id={selectName} className={css.select} onChange={ (e)=>handleSelectChange(e.target.value) } >
                 {options.map((option)=>{
                     const isSelected = selectedOptions && selectedOptions.find((item:Option) => item === option)
                     return (
