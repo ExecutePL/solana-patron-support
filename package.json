@@ -8,7 +8,8 @@
     "dev": "nodemon server/src/index.ts",
     "transpile": "tsc -p server",
     "build": "cd client && npm install && npm run build",
-    "postinstall": "prisma generate --schema=./server/src/prisma/schema.prisma"
+    "postinstall": "prisma generate --schema=./server/src/prisma/schema.prisma",
+    "migrate": "cd server/src/prisma && npx prisma migrate dev --name init"
   },
   "repository": {
     "type": "git",

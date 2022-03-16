@@ -7,6 +7,8 @@ import {
   createSocial_medias,
   getCurrency,
   createCurrency,
+  getTransaction,
+  createTransaction,
 } from "../../prisma/index";
 
 export class Actions {
@@ -28,10 +30,35 @@ export class Actions {
 
   static async createOrganization(req: express.Request, res: express.Response) {
     const prisma = new PrismaClient();
-    const { name, description, foto_src, target_raised, adress, type } =
-      req.body;
+    const {
+      organization_name,
+      description,
+      organization_foto_src,
+      target_raised,
+      organization_adress,
+      type,
+      discord,
+      facebook,
+      instagram,
+      telegram,
+      twitter,
+      currencyId,
+    } = req.body;
 
-    createOrganization(name, description, foto_src, target_raised, adress, type)
+    createOrganization(
+      organization_name,
+      description,
+      organization_foto_src,
+      target_raised,
+      organization_adress,
+      type,
+      discord,
+      facebook,
+      instagram,
+      telegram,
+      twitter,
+      currencyId
+    )
       .then((data) => {
         res.status(200).json();
       })
@@ -104,27 +131,42 @@ export class Actions {
 
   static async createCurrency(req: express.Request, res: express.Response) {
     const prisma = new PrismaClient();
-    const {
-      name,
-      symbol,
-      decimals,
-      min_decimals,
-      adress,
-      foto_src,
-      spl,
-      collateral,
-    } = req.body;
+    const { name, symbol, decimals, min_decimals, adress, foto_src, type } =
+      req.body;
 
-    createCurrency(
-      name,
-      symbol,
-      decimals,
-      min_decimals,
-      adress,
-      foto_src,
-      spl,
-      collateral
-    )
+    createCurrency(name, symbol, decimals, min_decimals, adress, foto_src, type)
+      .then((data) => {
+        res.status(200).json();
+      })
+      .catch((e) => {
+        throw e;
+      })
+      .finally(async () => {
+        await prisma.$disconnect();
+      });
+  }
+
+  static async getTransaction(req: express.Request, res: express.Response) {
+    const prisma = new PrismaClient();
+    const {} = req.body;
+
+    getTransaction()
+      .then((data) => {
+        res.status(200).json(data);
+      })
+      .catch((e) => {
+        throw e;
+      })
+      .finally(async () => {
+        await prisma.$disconnect();
+      });
+  }
+
+  static async createTransaction(req: express.Request, res: express.Response) {
+    const prisma = new PrismaClient();
+    const { amount, donator_adress, organizationId, currencyId } = req.body;
+
+    createTransaction(amount, donator_adress, organizationId, currencyId)
       .then((data) => {
         res.status(200).json();
       })

@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import { v4 as uuidv4 } from 'uuid';
+import { CurrencyType, PrismaClient } from "@prisma/client";
+import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
 
@@ -13,25 +13,21 @@ export const getOrganization = async () => {
 
 export const createOrganization = async (
   organization_name: string,
-  description: string = '',
-  organization_foto_src: string = '',
+  description: string = "",
+  organization_foto_src: string = "",
   target_raised: number,
   organization_adress: string,
   type: string,
-  discord: string = '',
-  facebook: string = '',
-  instagram: string = '',
-  telegram: string = '',
-  twitter: string = '',
-  currency_adress: string,
-  decimals: number,
-  min_decimals: number,
-  name: string,
-  symbol: string,
-  collateral: boolean,
-  spl: boolean,
-  currency_foto_src: string
+  discord: string = "",
+  facebook: string = "",
+  instagram: string = "",
+  telegram: string = "",
+  twitter: string = "",
+  currencyId: number[]
 ) => {
+  const data = currencyId.map((a) => ({
+    currencyId: a,
+  }));
   return await prisma.organization.create({
     data: {
       uuid: uuidv4(),
@@ -51,19 +47,8 @@ export const createOrganization = async (
         },
       },
       currencies: {
-        create: {
-          currency: {
-            create: {
-              adress: currency_adress,
-              decimals,
-              min_decimals,
-              name,
-              symbol,
-              collateral,
-              spl,
-              foto_src: currency_foto_src,
-            },
-          },
+        createMany: {
+          data,
         },
       },
     },
@@ -81,11 +66,11 @@ export const getSocial_medias = async () => {
 
 export const createSocial_medias = async (
   organizationId: number,
-  twitter: string = '',
-  facebook: string = '',
-  instagram: string = '',
-  discord: string = '',
-  telegram: string = ''
+  twitter: string = "",
+  facebook: string = "",
+  instagram: string = "",
+  discord: string = "",
+  telegram: string = ""
 ) => {
   return await prisma.social_medias.create({
     data: {
@@ -108,8 +93,7 @@ export const getCurrency = async () => {
       min_decimals: true,
       adress: true,
       foto_src: true,
-      spl: true,
-      collateral: true,
+      type: true,
     },
   });
 };
@@ -120,9 +104,8 @@ export const createCurrency = async (
   decimals: number,
   min_decimals: number,
   adress: string,
-  foto_src: string = '',
-  spl: boolean,
-  collateral: boolean
+  foto_src: string = "",
+  type: CurrencyType
 ) => {
   return await prisma.currency.create({
     data: {
@@ -132,20 +115,34 @@ export const createCurrency = async (
       min_decimals,
       adress,
       foto_src,
-      spl,
-      collateral,
+      type,
+    },
+  });
+};
+
+export const getTransaction = async () => {
+  return await prisma.transaction.findMany({
+    select: {
+      amount: true,
+      donator_adress: true,
+      organizationId: true,
+      currencyId: true,
     },
   });
 };
 
 export const createTransaction = async (
   amount: number,
-  donator_adress: string
+  donator_adress: string,
+  organizationId: number,
+  currencyId: number
 ) => {
   return await prisma.transaction.create({
     data: {
       amount,
       donator_adress,
+      organizationId,
+      currencyId,
     },
   });
 };

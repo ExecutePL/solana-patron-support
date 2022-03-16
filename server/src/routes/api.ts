@@ -9,13 +9,18 @@ const {
   createSocial_medias,
   getCurrency,
   createCurrency,
+  getTransaction,
+  createTransaction,
 } = Actions;
 
 router.get("/get/organization", getOrganization);
 router.post("/create/organization", createOrganization);
 
-router.get("/get/social_medias", getSocial_medias);
-router.post("/create/social_medias", createSocial_medias);
+router.get("/get/social-medias", getSocial_medias);
+router.post("/create/social-medias", createSocial_medias);
 
 router.get("/get/currency", getCurrency);
 router.post("/create/currency", createCurrency);
+
+router.get("/get/transaction", getTransaction);
+router.post("/create/transaction", createTransaction);
