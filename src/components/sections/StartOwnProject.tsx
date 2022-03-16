@@ -35,7 +35,6 @@ export const StartOwnProject = ({onCancleClick} : StartOwnProjectProps) => {
             setStep('projectType')
         }
     }
-    
     return (
         <div className={css.container}>
            {isProjectTypeStep && <NewProjectType onTypeClick={(type)=>setSelectedProjectType(type)} selectedProjectType={selectedProjectType}/>}
@@ -48,7 +47,7 @@ export const StartOwnProject = ({onCancleClick} : StartOwnProjectProps) => {
                 <Button onClick={()=>handleNextClick()} buttonClassName={css.nextButton}>
                     <div className={css.nextButtonContent}><span>Next</span> <NextIcon/></div>
                 </Button> 
-            </div>          
+            </div>     
         </div>
     )
 }

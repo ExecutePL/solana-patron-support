@@ -36,13 +36,15 @@ type Project = {
     title: string;
     desc: string;
     verified: boolean;
+    total_rise: number;
+    target_rise: number;
 };
 
 export const Projects: Project[] = [
-    { id: 1, thumbnail: project1, title: 'Project 1', desc: 'Lorem ipsum', verified: true },
-    { id: 2, thumbnail: project2, title: 'Project 2', desc: 'Lorem ipsum', verified: false },
-    { id: 3, thumbnail: project1, title: 'Project 3', desc: 'Lorem ipsum', verified: false },
-    { id: 4, thumbnail: project1, title: 'Project 4', desc: 'Lorem ipsum', verified: true },
-    { id: 5, thumbnail: project2, title: 'Project 5', desc: 'Lorem ipsum', verified: false },
-    { id: 6, thumbnail: project1, title: 'Project 6', desc: 'Lorem ipsum', verified: false },
+    { id: 1, thumbnail: project1, title: 'Project 1', desc: 'Lorem ipsum', verified: true, total_rise: 1000, target_rise: 300 },
+    { id: 2, thumbnail: project2, title: 'Project 2', desc: 'Lorem ipsum', verified: false, total_rise: 1000, target_rise: 100},
+    { id: 3, thumbnail: project1, title: 'Project 3', desc: 'Lorem ipsum', verified: false, total_rise: 1000, target_rise: 50 },
+    { id: 4, thumbnail: project1, title: 'Project 4', desc: 'Lorem ipsum', verified: true, total_rise: 1000, target_rise: 600 },
+    { id: 5, thumbnail: project2, title: 'Project 5', desc: 'Lorem ipsum', verified: false, total_rise: 1000, target_rise: 900 },
+    { id: 6, thumbnail: project1, title: 'Project 6', desc: 'Lorem ipsum', verified: false, total_rise: 1000, target_rise: 1000 },
 ];
