@@ -19,6 +19,8 @@ model Organization {
   total_raised  Int                       @default(0)
   target_raised Int
   adress        String                    @db.VarChar(45)
+  type          String
+  verified      Boolean                   @default(false)
   createdAt     DateTime                  @default(now())
   updatedAt     DateTime                  @updatedAt
   transactions  Transaction[]
@@ -37,6 +39,11 @@ model Social_medias {
   telegram       String?      @db.VarChar(255)
 }
 
+enum CurrencyType {
+  spl
+  collateral
+}
+
 model Currency {
   id            Int                       @id @default(autoincrement())
   name          String                    @db.VarChar(255)
@@ -45,8 +52,7 @@ model Currency {
   min_decimals  Int                       @default(0)
   adress        String                    @db.VarChar(45)
   foto_src      String?
-  spl           Boolean                   @default(false)
-  collateral    Boolean                   @default(false)
+  type          CurrencyType              @default(spl)
   organizations Organization_currencies[]
   transactions  Transaction[]
 }

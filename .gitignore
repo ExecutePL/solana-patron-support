@@ -6,7 +6,7 @@
 .parcel-cache
 .vercel
 
-dist
+client/dist
 docs
 
 node_modules

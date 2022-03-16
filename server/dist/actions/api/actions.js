@@ -1,0 +1,145 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Actions = void 0;
+const client_1 = require("@prisma/client");
+const index_1 = require("../../prisma/index");
+class Actions {
+    static getOrganization(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const prisma = new client_1.PrismaClient();
+            const {} = req.body;
+            (0, index_1.getOrganization)()
+                .then((data) => {
+                res.status(200).json(data);
+            })
+                .catch((e) => {
+                throw e;
+            })
+                .finally(() => __awaiter(this, void 0, void 0, function* () {
+                yield prisma.$disconnect();
+            }));
+        });
+    }
+    static createOrganization(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const prisma = new client_1.PrismaClient();
+            const { organization_name, description, organization_foto_src, target_raised, organization_adress, type, discord, facebook, instagram, telegram, twitter, currencyId, } = req.body;
+            (0, index_1.createOrganization)(organization_name, description, organization_foto_src, target_raised, organization_adress, type, discord, facebook, instagram, telegram, twitter, currencyId)
+                .then((data) => {
+                res.status(200).json();
+            })
+                .catch((e) => {
+                throw e;
+            })
+                .finally(() => __awaiter(this, void 0, void 0, function* () {
+                yield prisma.$disconnect();
+            }));
+        });
+    }
+    static getSocial_medias(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const prisma = new client_1.PrismaClient();
+            const {} = req.body;
+            (0, index_1.getSocial_medias)()
+                .then((data) => {
+                res.status(200).json(data);
+            })
+                .catch((e) => {
+                throw e;
+            })
+                .finally(() => __awaiter(this, void 0, void 0, function* () {
+                yield prisma.$disconnect();
+            }));
+        });
+    }
+    static createSocial_medias(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const prisma = new client_1.PrismaClient();
+            const { organizationId, twitter, facebook, instagram, discord, telegram } = req.body;
+            (0, index_1.createSocial_medias)(organizationId, twitter, facebook, instagram, discord, telegram)
+                .then((data) => {
+                res.status(200).json();
+            })
+                .catch((e) => {
+                throw e;
+            })
+                .finally(() => __awaiter(this, void 0, void 0, function* () {
+                yield prisma.$disconnect();
+            }));
+        });
+    }
+    static getCurrency(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const prisma = new client_1.PrismaClient();
+            const {} = req.body;
+            (0, index_1.getCurrency)()
+                .then((data) => {
+                res.status(200).json(data);
+            })
+                .catch((e) => {
+                throw e;
+            })
+                .finally(() => __awaiter(this, void 0, void 0, function* () {
+                yield prisma.$disconnect();
+            }));
+        });
+    }
+    static createCurrency(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const prisma = new client_1.PrismaClient();
+            const { name, symbol, decimals, min_decimals, adress, foto_src, type } = req.body;
+            (0, index_1.createCurrency)(name, symbol, decimals, min_decimals, adress, foto_src, type)
+                .then((data) => {
+                res.status(200).json();
+            })
+                .catch((e) => {
+                throw e;
+            })
+                .finally(() => __awaiter(this, void 0, void 0, function* () {
+                yield prisma.$disconnect();
+            }));
+        });
+    }
+    static getTransaction(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const prisma = new client_1.PrismaClient();
+            const {} = req.body;
+            (0, index_1.getTransaction)()
+                .then((data) => {
+                res.status(200).json(data);
+            })
+                .catch((e) => {
+                throw e;
+            })
+                .finally(() => __awaiter(this, void 0, void 0, function* () {
+                yield prisma.$disconnect();
+            }));
+        });
+    }
+    static createTransaction(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const prisma = new client_1.PrismaClient();
+            const { amount, donator_adress, organizationId, currencyId } = req.body;
+            (0, index_1.createTransaction)(amount, donator_adress, organizationId, currencyId)
+                .then((data) => {
+                res.status(200).json();
+            })
+                .catch((e) => {
+                throw e;
+            })
+                .finally(() => __awaiter(this, void 0, void 0, function* () {
+                yield prisma.$disconnect();
+            }));
+        });
+    }
+}
+exports.Actions = Actions;
