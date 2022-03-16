@@ -9,6 +9,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/pending', express.static(path.join(__dirname, 'dist','index.html')));
 app.use('/new', express.static(path.join(__dirname, 'dist','index.html')));
+app.use('/project/*', express.static(path.join(__dirname, 'dist','index.html')));
 app.get('/ping', function (req, res) {
     return res.send('pong');
 });

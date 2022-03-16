@@ -1,6 +1,6 @@
 .beVerified {
     margin-bottom: -100px;
-    padding: 59px 73px 26px 70px;
+    padding: 0px 15px 26px 15px;
     visibility: visible;
     animation-name: fadeInUp;
     max-width: 1000px;
@@ -11,14 +11,11 @@
     position: relative;
     background: linear-gradient(132.71deg, #6345ed 18.12%, #dc39fc 81.74%);
     border-radius: 30px;
-    padding: 30px 40px;
-    justify-content: space-between;
-    display: flex;
-    align-items: center;
+    padding: 20px 30px;
+    text-align: center;
 }
 
 .verifiedContent {
-    width: 44%;
     padding: 0;
 }
 
@@ -28,6 +25,7 @@
 
 .verifiedContent .subHeading {
     font-size: 18px;
+    margin-bottom:10px;
 }
 
 .verifiedContent .heading,
@@ -38,10 +36,8 @@
     margin-top: 15px;
 }
 .verifiedRight {
-    width: 56%;
     display: flex;
     align-items: center;
-    padding-left: 50px;
 }
 
 .verifiedRight img {
@@ -81,3 +77,24 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.4);
 }
 .container{}
+@media (min-width: 768px) {
+    .beVerified {
+        padding: 59px 73px 26px 70px;
+    }
+    .verifiedInner {
+        padding: 30px 40px;
+        justify-content: space-between;
+        display: flex;
+        align-items: center;
+    }
+    .verifiedRight {
+        width: 56%;
+        padding-left: 50px;
+    }
+    .verifiedContent {
+        width: 44;
+    }
+    .verifiedContent .subHeading {
+        margin-bottom:0;
+    }
+}
