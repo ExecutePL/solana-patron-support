@@ -10,9 +10,6 @@
         padding: 20px;
         list-style-type: none;
         width: 100%;
-        display: grid;
-        grid-gap: 20px;
-        grid-template-columns: 1fr 1fr 1fr;
     }
     & ul li {
         position: relative;
@@ -32,11 +29,12 @@
             box-shadow: none;
             background-color: rgba(255, 255, 255, 0.1);
         }
+        margin: 15px 0;
     }
 }
 .projectThumbnail {
     & img {
-        height: 230px;
+        height: 180px;
         width: 100%;
         object-fit: cover;
         margin-bottom: 30px;
@@ -58,5 +56,22 @@
         font-size: 14px;
         text-transform: uppercase;
         margin-left: 8px;
+    }
+}
+@media (min-width: 768px) {
+    .projectsListContainer {
+        & ul {
+            display: grid;
+            grid-gap: 20px;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        & ul li {
+            margin: 0;
+        }
+    }
+    .projectThumbnail {
+        & img {
+            height: 230px;
+        }
     }
 }
