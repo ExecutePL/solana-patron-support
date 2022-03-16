@@ -8,9 +8,6 @@ export const HeroSlider: FC = () => {
                 <div className={css.heroContent}>
                     <h1>Blockchain platform for making donations</h1>
                     <p>Join the world's largest community of organisations and send donations via cryptocurrencies</p>
-                    <button className={css.button}>
-                        <span>Explore now</span>
-                    </button>
                 </div>
             </div>
         </section>
