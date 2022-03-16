@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { BaseContainer } from '../container/BaseContainer';
 import { BackIcon } from '../images/BackIcon';
 import { Projects } from '../sections/ProjectsList';
 import * as css from './Project.module.pcss';
 import verifiedIcon from '../images/verifiedIcon.svg';
+import { Popup } from '../popup/Popup';
+import { Donation, DonationType } from '../sections/Donation';
 
 
 export const Project = () => {
     const params = useParams();
     const project = Projects.find((project)=>project.id.toString() === params.id);
+    const [isDonatePopupOpened, setIsDonatePopupOpened] = useState<boolean>(true);
+    const [selectedDonationType, setSelectedDonationType] = useState<DonationType>('one-time');
 
     return (
+        <>
         <div className={css.container}>
             <Link to='/' className={css.allProjectsLink}><BackIcon />All Projects</Link>
             <BaseContainer 
@@ -35,7 +40,19 @@ export const Project = () => {
                     </div>
                 }
                 buttonContent={<span>Donate</span>}
+                onButtonClick={()=>setIsDonatePopupOpened(true)}
             />        
         </div>
+        <Popup 
+            title="Please select a donation" 
+            content={
+                <Donation 
+                    selectedDonationType={selectedDonationType} 
+                    onDonationTypeClick={(type)=>setSelectedDonationType(type)}
+                />
+            } 
+            isPopupOpened={isDonatePopupOpened} 
+            onClose={()=>setIsDonatePopupOpened(false)}/>
+        </>
     )
 }

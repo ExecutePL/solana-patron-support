@@ -17,6 +17,8 @@ export const Navbar: FC = () => {
         [connectWallet]
     );
     const [isStartPopupOpened, setIsStartPopupOpened] = useState<boolean>(false);
+    const [isButtonHover, setIsButtonHover] = useState<boolean>(false);
+    
     return (
         <>
         <nav>
@@ -26,15 +28,16 @@ export const Navbar: FC = () => {
                         <img src={logo} alt="Logo" />
                     </Link>
                 </div>
-                <div className={css.menuElements}>
-                    <ul>
-                        <li>Home</li>
-                        <li>Roadmap</li>
-                        <li>Contact</li>
-                    </ul>
-                </div>
+                <Button 
+                    onClick={()=>setIsStartPopupOpened(true)} 
+                    onMouseEnter={()=>setIsButtonHover(true)} 
+                    onMouseLeave={()=>setIsButtonHover(false)}
+                    buttonClassName={isButtonHover && css.startButton}
+                >
+                    {isButtonHover ? 'Get Start': '+ Start Own Project' }
+                </Button>
                 <div className={css.buttons}>
-                    <Button onClick={()=>setIsStartPopupOpened(true)}>+ Start Own Project</Button>
+                   
                     <div className={css.connectWalletButton}>
                         <ConnectionProvider endpoint={DEVNET_ENDPOINT}>
                             <WalletProvider wallets={wallets} autoConnect={connectWallet}>

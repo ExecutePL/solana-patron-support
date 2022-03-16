@@ -6,11 +6,26 @@ import { Button } from '../buttons/Button';
 export const NewProjectForm = () => {
     const [formValues, setFormValues] = useState<ProjectFormValues | null>(null);
 
+    const test = {
+        organization_name:'test',
+      description:'test',
+      organization_foto_src:'test',
+      target_raised:1000,
+      organization_adress:'test',
+      type:'test',
+      discord:'test',
+      facebook:'test',
+      instagram:'test',
+      telegram:'test',
+      twitter:'test',
+      currencyId:[1,2],
+    }
+
     const createProject = async () => {
         const res = await fetch('/api/create/organization', {
             method: 'POST',
             body: JSON.stringify({
-                formValues,
+                ...test,
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -20,7 +35,7 @@ export const NewProjectForm = () => {
         console.log(data);
     };
     return (
-        <form className={css.form}>
+        <><form className={css.form}>
             <label htmlFor="logo" className={css.fileLabel}>
                 <img src={addLogoIcon} className={css.addLogoIcon} />
             </label>
@@ -65,8 +80,10 @@ export const NewProjectForm = () => {
                 required
                 onChange={(e) => setFormValues({ ...formValues, financeGoal: e.target.value })}
             />
-            <button onClick={createProject}>Click me</button>
+            
         </form>
+        <button onClick={createProject}>Click me</button>
+        </>
     );
 };
 
