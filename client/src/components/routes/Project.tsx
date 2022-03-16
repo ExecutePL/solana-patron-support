@@ -7,11 +7,12 @@ import * as css from './Project.module.pcss';
 import verifiedIcon from '../images/verifiedIcon.svg';
 import { Popup } from '../popup/Popup';
 import { Donation, DonationType } from '../sections/Donation';
+import project1 from '../images/project1.svg';
 
 
 export const Project = () => {
     const params = useParams();
-    const project = Projects.find((project)=>project.id.toString() === params.id);
+    const project = Projects.find((project)=>project.uuid.toString() === params.uuid);
     const [isDonatePopupOpened, setIsDonatePopupOpened] = useState<boolean>(false);
     const [selectedDonationType, setSelectedDonationType] = useState<DonationType>('one-time');
 
@@ -20,7 +21,7 @@ export const Project = () => {
         <div className={css.container}>
             <Link to='/' className={css.allProjectsLink}><BackIcon />All Projects</Link>
             <BaseContainer 
-                title={project?.title} 
+                title={project?.name} 
                 containerContent={
                     <div className={css.content}>
                         {project?.verified ? (
@@ -29,8 +30,8 @@ export const Project = () => {
                                         <span>verified</span>
                                     </div>
                                 ) : null}
-                        <img src={project?.thumbnail} alt={project?.title} className={css.image}/>
-                        <p className={css.decription}>{project?.desc}</p>
+                        <img src={project?.foto_src ? project.foto_src : project1} alt={project?.name} className={css.image}/>
+                        <p className={css.decription}>{project?.description}</p>
                         <div className={css.progressContainer}>
                             <p className={css.progressLabel}>Donation progress: </p>
                             <p className={css.targetRise}>${project?.target_rise}</p>
