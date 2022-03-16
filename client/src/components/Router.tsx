@@ -21,7 +21,7 @@ export const Router: FC = () => {
                     <Route path="transactions" element={<TransactionsRoute />} />
                 </Route>
                 <Route path="home" element={<Home />} />
-                <Route path="/project/:id" element={<Project />} />
+                <Route path="/project/:uuid" element={<Project />} />
             </Routes>
         </BrowserRouter>
     );
