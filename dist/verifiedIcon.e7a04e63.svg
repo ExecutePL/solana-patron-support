@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <g id="Circle_Button" data-name="Circle Button" transform="translate(0 0)">
+    <g id="Icon">
+      <rect id="Area" width="20" height="20" fill="#fcfcfc" opacity="0"></rect>
+      <g id="Icon-2" data-name="Icon" transform="translate(1.29 2.499)">
+        <circle id="Path" cx="5.833" cy="5.833" r="5.833" transform="translate(2.877 -1.666)" fill="none" stroke="#14f195" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667"></circle>
+        <path id="Path-2" data-name="Path" d="M6.842,11.575,5.833,19.167,10,16.667l4.167,2.5-1.009-7.6" transform="translate(-1.29 -2.499)" fill="none" stroke="#14f195" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667"></path>
+      </g>
+    </g>
+  </g>
+</svg>
