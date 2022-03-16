@@ -7,7 +7,7 @@
     "license": "Apache-2.0",
     "scripts": {
         "clean": "shx rm -rf dist .parcel-cache",
-        "build": "yarn clean && parcel build src/index.html",
+        "build": "parcel build src/index.html",
         "start": "yarn run build && node server.js",
         "build-watch": "parcel watch src/index.html",
         "start-watch": "node server.js",
