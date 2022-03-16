@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-import express from "express";
+import { PrismaClient } from '@prisma/client';
+import express from 'express';
 import {
   getOrganization,
   createOrganization,
@@ -9,7 +9,7 @@ import {
   createCurrency,
   getTransaction,
   createTransaction,
-} from "../../prisma/index";
+} from '../../prisma/index';
 
 export class Actions {
   static async getOrganization(req: express.Request, res: express.Response) {
@@ -33,7 +33,6 @@ export class Actions {
     const {
       organization_name,
       description,
-      organization_foto_src,
       target_raised,
       organization_adress,
       type,
@@ -43,12 +42,18 @@ export class Actions {
       telegram,
       twitter,
       currencyId,
-    } = req.body;
+    } = req.body.data;
+    // const { data } = req.body;
+
+    const organization_foto_src = `uploads/${req.file?.filename}`;
+    console.log(req.body);
+
+    console.log(organization_foto_src);
 
     createOrganization(
       organization_name,
       description,
-      organization_foto_src,
+      '',
       target_raised,
       organization_adress,
       type,
