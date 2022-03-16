@@ -3,15 +3,22 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   align-content:center;
   padding:15px;
+  margin-top: 50px;
   
 }
 .content{
     text-align:center;
     position: relative;
+    display:flex;
+    flex-direction: column;
+    align-items: flex-end;
+    min-height: 500px;
+    justify-content: space-between;
+
 }
 .subtitle{
   font-size: 24px;
@@ -57,9 +64,52 @@
         margin-left: 8px;
     }
 }
+.progress{
+  margin-top: 3px;
+  height:25px;
+  padding:0px;
+  width:100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius:20px;
+}
+.progress[value]::-webkit-progress-bar {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  border-radius:20px;
+}
+.progress::-webkit-progress-value {
+  background-image: linear-gradient(90deg, #934EF9, #14EF95 );
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.progressContainer{
+  width:90%;
+  margin: 0 auto;
+  text-align: left;
+}
+.progressLabel{
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+}
+.targetRise {
+  margin: 8px 0 3px;
+  font-size: 28px;
+  line-height: 30px;
+}
+.totalRise{
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+  font-size: 12px;
+}
 @media (min-width: 768px) {
     .allProjectsLink{
       top:40px;
       left:80px;
+    }
+    .container{
+      justify-content: center;
+      margin:0;
     }
 }

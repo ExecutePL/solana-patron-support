@@ -17,12 +17,8 @@
     background:  rgba(45,49,115,0.9);
     max-width:  48px;
     max-height: 48px;
-    transition: transform 0.6s ;
-    &:hover{
-        transform: scale(1.4);
-        background:  rgba(50,50,115,1);
-    }
 }
+
 @media (min-width: 768px) {
     .container{
         align-items:center;
@@ -31,5 +27,12 @@
         top:10%;
         left:20%;
         right:auto;
+    }
+    .closeButton{
+        transition: transform 0.6s ;
+        &:hover{
+            transform: scale(1.4);
+            background:  rgba(50,50,115,1);
+        }
     }
 }

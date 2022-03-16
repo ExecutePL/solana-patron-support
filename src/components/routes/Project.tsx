@@ -26,10 +26,16 @@ export const Project = () => {
                                 ) : null}
                         <img src={project?.thumbnail} alt={project?.title} className={css.image}/>
                         <p className={css.decription}>{project?.desc}</p>
+                        <div className={css.progressContainer}>
+                            <p className={css.progressLabel}>Donation progress: </p>
+                            <p className={css.targetRise}>${project?.target_rise}</p>
+                            <p className={css.totalRise}>of ${project?.total_rise} collected</p>
+                            <progress id="donationProgress" value={project?.target_rise} max={project?.total_rise} className={css.progress}></progress>
+                        </div>
                     </div>
                 }
                 buttonContent={<span>Donate</span>}
-            />
+            />        
         </div>
     )
 }
