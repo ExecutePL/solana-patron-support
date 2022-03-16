@@ -44,9 +44,10 @@ export const StartOwnProject = ({onCancleClick} : StartOwnProjectProps) => {
                     {isProjectTypeStep && 'Cancle'}
                     {isProjectDataStep && 'Back'}
                 </Button>
+                { isProjectTypeStep && 
                 <Button onClick={()=>handleNextClick()} buttonClassName={css.nextButton}>
                     <div className={css.nextButtonContent}><span>Next</span> <NextIcon/></div>
-                </Button> 
+                </Button> }
             </div>     
         </div>
     )

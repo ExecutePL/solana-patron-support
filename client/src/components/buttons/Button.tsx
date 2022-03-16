@@ -4,7 +4,7 @@ import * as css from './Button.module.pcss'
 import cx from 'classnames/bind';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
-    onClick: HTMLAttributes<HTMLButtonElement>['onClick'];
+    onClick?: HTMLAttributes<HTMLButtonElement>['onClick'];
     children: ReactNode;
     buttonClassName?:string;
 }

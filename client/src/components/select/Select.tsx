@@ -5,7 +5,6 @@ import cx from 'classnames/bind';
 export type Option = {
     id:number;
     name: string;
-    foto_src?:string;
 }
 
 interface SelectProps {
@@ -53,12 +52,7 @@ export const Select = ({options, selectName, label, handleSelectedValuesChange}:
                     const isSelected = selectedOptions && selectedOptions.find((item:Option) => item === option)
                     return (
                     <option key={option.id} value={option.name} className={cx(css.option, {[css.isOptionSelected]: isSelected})}>
-                       <div> {option.foto_src && <div
-      dangerouslySetInnerHTML={{__html: option.foto_src}}
-    />}
-    
-                        {/* {option.foto_src} */}
-                        {option.name}</div>
+                        {option.name}                 
                     </option>
                     )})}
             </select>
