@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useParams } from "react-router-dom";
+import React, { useContext, useMemo, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { BaseContainer } from '../container/BaseContainer';
 import { BackIcon } from '../images/BackIcon';
 import { Projects } from '../sections/ProjectsList';
@@ -9,13 +9,18 @@ import { Popup } from '../popup/Popup';
 import { Donation, DonationType } from '../sections/Donation';
 import project1 from '../images/project1.svg';
 
+import { useWallet } from '@solana/wallet-adapter-react';
 
 export const Project = () => {
     const params = useParams();
     const project = Projects.find((project)=>project.uuid.toString() === params.uuid);
     const [isDonatePopupOpened, setIsDonatePopupOpened] = useState<boolean>(false);
     const [selectedDonationType, setSelectedDonationType] = useState<DonationType>('one-time');
-
+    0;
+    const publicKey = useWallet();
+    if (publicKey.publicKey) {
+        console.log(publicKey.publicKey?.toBase58());
+    }
     return (
         <>
         <div className={css.container}>
@@ -38,22 +43,23 @@ export const Project = () => {
                             <p className={css.totalRise}>of ${project?.total_rise} collected</p>
                             <progress id="donationProgress" value={project?.target_rise} max={project?.total_rise} className={css.progress}></progress>
                         </div>
-                    </div>
-                }
-                buttonContent={<span>Donate</span>}
-                onButtonClick={()=>setIsDonatePopupOpened(true)}
-            />        
-        </div>
-        <Popup 
-            title="Please select a donation" 
-            content={
-                <Donation 
-                    selectedDonationType={selectedDonationType} 
-                    onDonationTypeClick={(type)=>setSelectedDonationType(type)}
+                        </div>
+                    }
+                    buttonContent={<span>Donate</span>}
+                    onButtonClick={() => setIsDonatePopupOpened(true)}
                 />
-            } 
-            isPopupOpened={isDonatePopupOpened} 
-            onClose={()=>setIsDonatePopupOpened(false)}/>
+            </div>
+            <Popup
+                title="Please select a donation"
+                content={
+                    <Donation
+                        selectedDonationType={selectedDonationType}
+                        onDonationTypeClick={(type) => setSelectedDonationType(type)}
+                    />
+                }
+                isPopupOpened={isDonatePopupOpened}
+                onClose={() => setIsDonatePopupOpened(false)}
+            />
         </>
-    )
-}
+    );
+};

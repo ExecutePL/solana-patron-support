@@ -1,13 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import * as css from './Home.module.pcss';
-import { Navbar } from '../sections/Navbar';
 import { ProjectsList } from '../sections/ProjectsList';
 import { Footer } from '../sections/Footer';
 import { HeroSlider } from '../sections/HeroSlider';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useConfig } from '../../hooks/useConfig';
+
 export const Home: FC = () => {
     return (
         <>
-            <Navbar />
             <HeroSlider />
             <ProjectsList />
             <Footer />

@@ -8,20 +8,30 @@ import { Project } from './routes/Project';
 import { PendingRoute } from './routes/PendingRoute';
 import { RootRoute } from './routes/RootRoute';
 import { TransactionsRoute } from './routes/TransactionsRoute';
+import { AppWrapper } from './contexts/UserWallet';
+import { Layout } from './container/Layout';
 
 export const Router: FC = () => {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Routes>
                 <Route element={<RootRoute />}>
-                    <Route index element={<IndexRedirect />} />
                     <Route path="new" element={<NewRoute />} />
                     <Route path="pending" element={<PendingRoute />} />
                     <Route path="confirmed" element={<ConfirmedRoute />} />
                     <Route path="transactions" element={<TransactionsRoute />} />
                 </Route>
-                <Route path="home" element={<Home />} />
-                <Route path="/project/:uuid" element={<Project />} />
+                <Route element={<Layout />}>
+                    <Route path="/" element={<Home />} />
+                    <Route
+                        path="/project/:uuid"
+                        element={
+                            <AppWrapper>
+                                <Project />
+                            </AppWrapper>
+                        }
+                    />
+                </Route>
             </Routes>
         </BrowserRouter>
     );
