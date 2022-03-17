@@ -11,7 +11,7 @@ interface NewProjectProps {
 export const NewProjectForm = ({ projectType }: NewProjectProps) => {
     const [formValues, setFormValues] = useState<ProjectFormValues | null>(null);
     const [isSocialMediaOpened, setSocialMediaOpened] = useState<boolean>(false);
-    const [currenciesList, setCurrenciesList] = u;
+    const [currenciesList, setCurrenciesList] = useState([]);
 
     useEffect(() => {
         setFormValues({ ...formValues, type: projectType });
