@@ -7,7 +7,6 @@ import * as css from './Project.module.pcss';
 import verifiedIcon from '../images/verifiedIcon.svg';
 import { Popup } from '../popup/Popup';
 import { Donation, DonationType } from '../sections/Donation';
-import project1 from '../images/project1.svg';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { SocialMedia } from '../sections/SocialMedia';
 
