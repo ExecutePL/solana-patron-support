@@ -1,5 +1,5 @@
-import { CurrencyType, PrismaClient } from '@prisma/client';
-import { v4 as uuidv4 } from 'uuid';
+import { CurrencyType, PrismaClient } from "@prisma/client";
+import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
 
@@ -47,22 +47,37 @@ export const getSingleOrganization = async (uuid: string) => {
           telegram: true,
         },
       },
+      currencies: {
+        select: {
+          currency: {
+            select: {
+              name: true,
+              symbol: true,
+              decimals: true,
+              min_decimals: true,
+              adress: true,
+              foto_src: true,
+              type: true,
+            },
+          },
+        },
+      },
     },
   });
 };
 
 export const createOrganization = async (
   organization_name: string,
-  description: string = '',
-  organization_foto_src: string = '',
+  description: string = "",
+  organization_foto_src: string = "",
   target_raised: number,
-  organization_adress: string = '',
+  organization_adress: string = "",
   type: string,
-  discord: string = '',
-  facebook: string = '',
-  instagram: string = '',
-  telegram: string = '',
-  twitter: string = '',
+  discord: string = "",
+  facebook: string = "",
+  instagram: string = "",
+  telegram: string = "",
+  twitter: string = "",
   currencyId: number[]
 ) => {
   const data = currencyId.map((a) => ({
@@ -110,11 +125,11 @@ export const getSocial_medias = async () => {
 
 export const createSocial_medias = async (
   organizationId: number,
-  twitter: string = '',
-  facebook: string = '',
-  instagram: string = '',
-  discord: string = '',
-  telegram: string = ''
+  twitter: string = "",
+  facebook: string = "",
+  instagram: string = "",
+  discord: string = "",
+  telegram: string = ""
 ) => {
   return await prisma.social_medias.create({
     data: {
@@ -148,7 +163,7 @@ export const createCurrency = async (
   decimals: number,
   min_decimals: number,
   adress: string,
-  foto_src: string = '',
+  foto_src: string = "",
   type: CurrencyType
 ) => {
   return await prisma.currency.create({

@@ -8,31 +8,28 @@ export type DonationType = any;
 interface DonationProps {
     selectedDonationType: DonationType;
     onDonationTypeClick: (type: string) => void;
+    selectedOrganizationCurrencies: Array<object>;
 }
 
-export const Donation = ({ selectedDonationType, onDonationTypeClick }: DonationProps) => {
+export const Donation = ({
+    selectedDonationType,
+    onDonationTypeClick,
+    selectedOrganizationCurrencies,
+}: DonationProps) => {
     const [selectedCurrencies, setSelectedCurrencies] = useState<Option[]>();
     const handleSelectedCurrencies = (selectedCurrency: Option[]) => {
         setSelectedCurrencies(selectedCurrency);
+        console.log('Test');
     };
     const [currenciesListCopy, setCurrenciesListCopy] = useState([]);
     const [currenciesList, setCurrenciesList] = useState([]);
+    const [radioStatus, setradioStatus] = useState(false);
 
     // console.log(selectedCurrencies);
 
-    const getCurrencies = async () => {
-        const res = await fetch('/api/get/currency', {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        });
-        const data = await res.json();
-        data.forEach((o: { id: any }, i: number) => (o.id = i + 1));
-
-        setCurrenciesList(data);
+    const getCurrencies = () => {
+        setCurrenciesList(selectedOrganizationCurrencies);
     };
-    console.log({ selectedDonationType });
 
     const currencies = (selectedDonationType: string) => {
         switch (selectedDonationType.toString()) {
@@ -55,10 +52,18 @@ export const Donation = ({ selectedDonationType, onDonationTypeClick }: Donation
     useEffect(() => {
         getCurrencies();
     }, []);
+
     useEffect(() => {
-        const test = currencies(selectedDonationType.toString());
-        console.log({ test });
+        currencies(selectedDonationType.toString());
     }, [selectedDonationType, currenciesList]);
+
+    useEffect(() => {
+        setradioStatus(false);
+    });
+
+    useEffect(() => {
+        setradioStatus(true);
+    }, [onDonationTypeClick]);
 
     return (
         <div className={css.container}>
@@ -75,6 +80,7 @@ export const Donation = ({ selectedDonationType, onDonationTypeClick }: Donation
                     selectName="currency"
                     defaultOption="- Select currenies -"
                     title="Currencies: "
+                    isRadioChange={radioStatus}
                     handleSelectedValuesChange={(selectedOptions) => handleSelectedCurrencies(selectedOptions)}
                 />
             </div>

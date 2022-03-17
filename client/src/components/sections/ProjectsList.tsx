@@ -14,56 +14,55 @@ export const ProjectsList: FC = () => {
             },
         });
         const data = await res.json();
-        setProjectList(data)
+        setProjectList(data);
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         getProjectsList();
-    }, [])
-    
+    }, []);
+
     return (
         <div className={css.projectsListContainer}>
             <ul>
-                {projectList && projectList.map(({uuid, foto_src, name, description, verified}:ProjectData, index) => (
-                    <Link to={`/project/${uuid}`} key={index}>
-                        <li>
-                            {verified ? (
-                                <div className={css.verifiedStatus}>
-                                    <img src={verifiedIcon} />
-                                    <span>verified</span>
+                {projectList &&
+                    projectList.map(({ uuid, foto_src, name, description, verified }: ProjectData, index) => (
+                        <Link to={`/project/${uuid}`} key={index}>
+                            <li>
+                                {verified ? (
+                                    <div className={css.verifiedStatus}>
+                                        <img src={verifiedIcon} />
+                                        <span>verified</span>
+                                    </div>
+                                ) : null}
+                                <div className={css.projectThumbnail}>
+                                    <img src={foto_src} alt={name} />
                                 </div>
-                            ) : null}
-                            <div className={css.projectThumbnail}>
-                                <img src={foto_src} alt={name} />
-                            </div>
-                            <h3>{name}</h3>
-                            <p className={css.projectDescription}>{description}</p>
-                        </li>
-                    </Link>
-                ))}
+                                <h3>{name}</h3>
+                                <p className={css.projectDescription}>{description}</p>
+                            </li>
+                        </Link>
+                    ))}
             </ul>
         </div>
     );
 };
 
 export type ProjectData = {
-    uuid:string;
+    uuid: string;
     foto_src?: string;
     name: string;
     description?: string;
     verified?: boolean;
     total_raised?: number;
     target_raised?: number;
-    socials:SocialMedia[]
-    
+    socials: SocialMedia[];
+    currencies: [{}];
 };
 
 type SocialMedia = {
-    discord?:string;
-    facebook?:string;
-    instagram?:string;
-    twitter?:string;
-    telegram?:string;
-}
-
-
+    discord?: string;
+    facebook?: string;
+    instagram?: string;
+    twitter?: string;
+    telegram?: string;
+};
