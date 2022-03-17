@@ -30,9 +30,11 @@ class Actions {
         });
     }
     static createOrganization(req, res) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const prisma = new client_1.PrismaClient();
-            const { organization_name, description, organization_foto_src, target_raised, organization_adress, type, discord, facebook, instagram, telegram, twitter, currencyId, } = req.body;
+            const { organization_name, description, target_raised, organization_adress, type, discord, facebook, instagram, telegram, twitter, currencyId, } = JSON.parse(req.body.data);
+            const organization_foto_src = `${req.headers.host}/uploads/${(_a = req.file) === null || _a === void 0 ? void 0 : _a.filename}`;
             (0, index_1.createOrganization)(organization_name, description, organization_foto_src, target_raised, organization_adress, type, discord, facebook, instagram, telegram, twitter, currencyId)
                 .then((data) => {
                 res.status(200).json();
