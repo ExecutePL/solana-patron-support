@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import * as css from './HeroSlider.module.pcss';
 
 export const HeroSlider: FC = () => {

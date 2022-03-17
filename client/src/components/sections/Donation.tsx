@@ -30,7 +30,7 @@ export const Donation = ({selectedDonationType, onDonationTypeClick} : DonationP
                     options={currencies} 
                     selectName="currency" 
                     defaultOption='- Select currenies -' 
-                    label='Currencies: ' 
+                    title='Currencies: ' 
                     handleSelectedValuesChange={(selectedOptions)=>handleSelectedCurrencies(selectedOptions)} />
                 </div>
             </div>

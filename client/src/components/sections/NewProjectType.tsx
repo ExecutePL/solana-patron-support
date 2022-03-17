@@ -1,10 +1,9 @@
 import React from "react"
 import * as css from './NewProjectType.module.pcss';
-import { SelectedProjectType } from "./StartOwnProject";
 import { Item, RadioGroup } from "../radioGroup/RadioGroup";
 
 interface NewProjectTypeProps {
-    selectedProjectType : SelectedProjectType;
+    selectedProjectType : string;
     onTypeClick: (type: string) => void
 }
 

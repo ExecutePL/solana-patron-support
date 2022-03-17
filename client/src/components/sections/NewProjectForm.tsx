@@ -2,16 +2,24 @@ import React, { useEffect, useState } from 'react';
 import * as css from './NewProjectForm.module.pcss';
 import addLogoIcon from '../images/addLogo.svg';
 import { Select, Option } from '../select/Select';
+import { Popup } from '../popup/Popup';
+import { useNavigate } from "react-router-dom";
+import { NextIcon } from '../images/NextIcon';
+import { Button } from '../buttons/Button';
 
 interface NewProjectProps {
     projectType: string;
+    handleCloseClick: (isCloseClicked: boolean) => void;
 }
 
-export const NewProjectForm = ({ projectType }: NewProjectProps) => {
+export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProps) => {
     const [formValues, setFormValues] = useState<ProjectFormValues | null>(null);
     const [isSocialMediaOpened, setSocialMediaOpened] = useState<boolean>(false);
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
     const [uploadedFileObjURL, setUploadedFileObjURL] = useState<string>('');
+    const [isProjectCreated, setIsProjectCreated] = useState<boolean>(false);
+    const navigate = useNavigate(); 
+    console.log(isProjectCreated)
 
     useEffect(() => {
         setFormValues({ ...formValues, type: projectType });
@@ -28,6 +36,12 @@ export const NewProjectForm = ({ projectType }: NewProjectProps) => {
             setFormValues({ ...formValues, currencyId });
         }        
     };
+    const handleStatusPopup = () => {
+        navigate('/');
+        handleCloseClick(true);
+        setIsProjectCreated(false)
+        window.location.reload();
+    }
 
     const createProject = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -45,8 +59,11 @@ export const NewProjectForm = ({ projectType }: NewProjectProps) => {
             method: 'POST',
             body: formData,
         });
-        const data = await res.json();
-        console.log(data);
+        if (res.ok){
+            setIsProjectCreated(true)
+        } else {
+            setIsProjectCreated(false)
+        }
     };
     return (
         <>
@@ -161,6 +178,16 @@ export const NewProjectForm = ({ projectType }: NewProjectProps) => {
                 />
                 <button type="submit">Click me</button>
             </form>
+            <Popup 
+                isPopupOpened={isProjectCreated}
+                onClose={()=>{handleStatusPopup()}}
+                content= {
+                    <div className={css.popupContent}>
+                           <p className={css.popupTitle}>Your project has been successfully created!</p>
+                            <Button onClick={()=>handleStatusPopup()}>Go to all projects <NextIcon /></Button> 
+                    </div>
+                }
+            />
         </>
     );
 };

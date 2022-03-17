@@ -1,8 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import * as css from './ProjectsList.module.pcss';
 import verifiedIcon from '../images/verifiedIcon.svg';
-import project1 from '../images/project1.svg';
-import project2 from '../images/project2.svg';
 import { Link } from 'react-router-dom';
 
 export const ProjectsList: FC = () => {
@@ -36,7 +34,7 @@ export const ProjectsList: FC = () => {
                                 </div>
                             ) : null}
                             <div className={css.projectThumbnail}>
-                                <img src={foto_src ? foto_src : project1} alt={name} />
+                                <img src={foto_src} alt={name} />
                             </div>
                             <h3>{name}</h3>
                             <p className={css.projectDescription}>{description}</p>
