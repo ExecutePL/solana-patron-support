@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Item, RadioGroup } from '../radioGroup/RadioGroup';
 import * as css from './Donation.module.pcss';
 import { Option, Select } from '../select/Select';
