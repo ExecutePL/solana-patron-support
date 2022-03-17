@@ -16,40 +16,42 @@ export const ProjectsList: FC = () => {
             },
         });
         const data = await res.json();
-        setProjectList(data)
+        setProjectList(data);
+        console.log(data);
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         getProjectsList();
-    }, [])
-    
+    }, []);
+
     return (
         <div className={css.projectsListContainer}>
             <ul>
-                {projectList && projectList.map(({uuid, foto_src, name, description, verified}:Project, index) => (
-                    <Link to={`/project/${uuid}`} key={index}>
-                        <li>
-                            {verified ? (
-                                <div className={css.verifiedStatus}>
-                                    <img src={verifiedIcon} />
-                                    <span>verified</span>
+                {projectList &&
+                    projectList.map(({ uuid, foto_src, name, description, verified }: Project, index) => (
+                        <Link to={`/project/${uuid}`} key={index}>
+                            <li>
+                                {verified ? (
+                                    <div className={css.verifiedStatus}>
+                                        <img src={verifiedIcon} />
+                                        <span>verified</span>
+                                    </div>
+                                ) : null}
+                                <div className={css.projectThumbnail}>
+                                    <img src={foto_src ? foto_src : project1} alt={name} />
                                 </div>
-                            ) : null}
-                            <div className={css.projectThumbnail}>
-                                <img src={foto_src ? foto_src : project1} alt={name} />
-                            </div>
-                            <h3>{name}</h3>
-                            <p className={css.projectDescription}>{description}</p>
-                        </li>
-                    </Link>
-                ))}
+                                <h3>{name}</h3>
+                                <p className={css.projectDescription}>{description}</p>
+                            </li>
+                        </Link>
+                    ))}
             </ul>
         </div>
     );
 };
 
 type Project = {
-    uuid:string;
+    uuid: string;
     foto_src?: string;
     name: string;
     description?: string;
@@ -59,10 +61,58 @@ type Project = {
 };
 
 export const Projects: Project[] = [
-    { uuid: '1', foto_src: project1, name: 'Project 1', description: 'Lorem ipsum', verified: true, total_rise: 1000, target_rise: 300 },
-    { uuid: '2', foto_src: project2, name: 'Project 2', description: 'Lorem ipsum', verified: false, total_rise: 1000, target_rise: 100},
-    { uuid: '3', foto_src: project1, name: 'Project 3', description: 'Lorem ipsum', verified: false, total_rise: 1000, target_rise: 50 },
-    { uuid: '4', foto_src: project1, name: 'Project 4', description: 'Lorem ipsum', verified: true, total_rise: 1000, target_rise: 600 },
-    { uuid: '5', foto_src: project2, name: 'Project 5', description: 'Lorem ipsum', verified: false, total_rise: 1000, target_rise: 900 },
-    { uuid: '6', foto_src: project1, name: 'Project 6', description: 'Lorem ipsum', verified: false, total_rise: 1000, target_rise: 1000 },
+    {
+        uuid: '1',
+        foto_src: project1,
+        name: 'Project 1',
+        description: 'Lorem ipsum',
+        verified: true,
+        total_rise: 1000,
+        target_rise: 300,
+    },
+    {
+        uuid: '2',
+        foto_src: project2,
+        name: 'Project 2',
+        description: 'Lorem ipsum',
+        verified: false,
+        total_rise: 1000,
+        target_rise: 100,
+    },
+    {
+        uuid: '3',
+        foto_src: project1,
+        name: 'Project 3',
+        description: 'Lorem ipsum',
+        verified: false,
+        total_rise: 1000,
+        target_rise: 50,
+    },
+    {
+        uuid: '4',
+        foto_src: project1,
+        name: 'Project 4',
+        description: 'Lorem ipsum',
+        verified: true,
+        total_rise: 1000,
+        target_rise: 600,
+    },
+    {
+        uuid: '5',
+        foto_src: project2,
+        name: 'Project 5',
+        description: 'Lorem ipsum',
+        verified: false,
+        total_rise: 1000,
+        target_rise: 900,
+    },
+    {
+        uuid: '6',
+        foto_src: project1,
+        name: 'Project 6',
+        description: 'Lorem ipsum',
+        verified: false,
+        total_rise: 1000,
+        target_rise: 1000,
+    },
 ];
