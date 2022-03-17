@@ -26,7 +26,7 @@ export const ProjectsList: FC = () => {
     return (
         <div className={css.projectsListContainer}>
             <ul>
-                {projectList && projectList.map(({uuid, foto_src, name, description, verified}:Project, index) => (
+                {projectList && projectList.map(({uuid, foto_src, name, description, verified}:ProjectData, index) => (
                     <Link to={`/project/${uuid}`} key={index}>
                         <li>
                             {verified ? (
@@ -48,26 +48,24 @@ export const ProjectsList: FC = () => {
     );
 };
 
-type Project = {
+export type ProjectData = {
     uuid:string;
     foto_src?: string;
     name: string;
     description?: string;
     verified?: boolean;
-    total_rise?: number;
-    target_rise?: number;
+    total_raised?: number;
+    target_raised?: number;
+    socials:SocialMedia[]
+    
+};
+
+type SocialMedia = {
     discord?:string;
     facebook?:string;
     instagram?:string;
     twitter?:string;
     telegram?:string;
-};
+}
 
-export const Projects: Project[] = [
-    { uuid: '1', foto_src: project1, name: 'Project 1', description: 'Lorem ipsum', verified: true, total_rise: 1000, target_rise: 300, discord:'https://www.facebook.com/', facebook:'https://www.facebook.com/', telegram:'https://www.facebook.com/', instagram:'https://www.facebook.com/', twitter:'https://www.facebook.com/' },
-    { uuid: '2', foto_src: project2, name: 'Project 2', description: 'Lorem ipsum', verified: false, total_rise: 1000, target_rise: 100},
-    { uuid: '3', foto_src: project1, name: 'Project 3', description: 'Lorem ipsum', verified: false, total_rise: 1000, target_rise: 50 },
-    { uuid: '4', foto_src: project1, name: 'Project 4', description: 'Lorem ipsum', verified: true, total_rise: 1000, target_rise: 600 },
-    { uuid: '5', foto_src: project2, name: 'Project 5', description: 'Lorem ipsum', verified: false, total_rise: 1000, target_rise: 900 },
-    { uuid: '6', foto_src: project1, name: 'Project 6', description: 'Lorem ipsum', verified: false, total_rise: 1000, target_rise: 1000 },
-];
+

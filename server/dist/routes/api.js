@@ -23,7 +23,7 @@ const upload = (0, multer_1.default)({ storage: storage });
 const { getOrganization, getSingleOrganization, createOrganization, getSocial_medias, createSocial_medias, getCurrency, createCurrency, getTransaction, createTransaction, } = actions_1.Actions;
 exports.router.get('/get/organization', getOrganization);
 exports.router.post('/create/organization', upload.single('file'), createOrganization);
-exports.router.get('/get/one-organization', getSingleOrganization);
+exports.router.post('/get/one-organization', getSingleOrganization);
 exports.router.get('/get/social-medias', getSocial_medias);
 exports.router.post('/create/social-medias', createSocial_medias);
 exports.router.get('/get/currency', getCurrency);

@@ -32,7 +32,7 @@ const {
 
 router.get('/get/organization', getOrganization);
 router.post('/create/organization', upload.single('file'), createOrganization);
-router.get('/get/one-organization', getSingleOrganization);
+router.post('/get/one-organization', getSingleOrganization);
 
 router.get('/get/social-medias', getSocial_medias);
 router.post('/create/social-medias', createSocial_medias);

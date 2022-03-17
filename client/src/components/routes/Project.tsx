@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { BaseContainer } from '../container/BaseContainer';
 import { BackIcon } from '../images/BackIcon';
-import { Projects } from '../sections/ProjectsList';
+import { ProjectData } from '../sections/ProjectsList';
 import * as css from './Project.module.pcss';
 import verifiedIcon from '../images/verifiedIcon.svg';
 import { Popup } from '../popup/Popup';
@@ -13,10 +13,30 @@ import { SocialMedia } from '../sections/SocialMedia';
 
 export const Project = () => {
     const params = useParams();
-    const project = Projects.find((project)=>project.uuid.toString() === params.uuid);
+    const uuid = params.uuid;
     const [isDonatePopupOpened, setIsDonatePopupOpened] = useState<boolean>(false);
     const [selectedDonationType, setSelectedDonationType] = useState<DonationType>('one-time');
-    0;
+    const [project, setProject] = useState<ProjectData>();
+    console.log(project)
+
+    const getProjectsList = async (uuid:string) => {
+        const res = await fetch('/api/get/one-organization', {
+            method: 'POST',
+            body: JSON.stringify({
+                uuid
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        });
+        const data = await res.json();
+        setProject(data)
+    };
+
+    useEffect(()=>{
+        uuid && getProjectsList(uuid);
+    }, [uuid])
+
     const publicKey = useWallet();
     if (publicKey.publicKey) {
         console.log(publicKey.publicKey?.toBase58());
@@ -37,18 +57,18 @@ export const Project = () => {
                                 ) : null}
                         <img src={project?.foto_src ? project.foto_src : project1} alt={project?.name} className={css.image}/>
                         <p className={css.decription}>{project?.description}</p>
-                        <SocialMedia 
-                            facebookLink={project?.facebook}
-                            instagramLink={project?.instagram}
-                            twitterLink={project?.twitter}
-                            telegramLink={project?.telegram}
-                            discordLink={project?.discord}
-                        />
+                        {project?.socials && <SocialMedia 
+                            facebookLink={project?.socials[0].facebook}
+                            instagramLink={project?.socials[0].instagram}
+                            twitterLink={project?.socials[0].twitter}
+                            telegramLink={project?.socials[0].telegram}
+                            discordLink={project?.socials[0].discord}
+                        />}
                         <div className={css.progressContainer}>
                             <p className={css.progressLabel}>Donation progress: </p>
-                            <p className={css.targetRise}>${project?.target_rise}</p>
-                            <p className={css.totalRise}>of ${project?.total_rise} collected</p>
-                            <progress id="donationProgress" value={project?.target_rise} max={project?.total_rise} className={css.progress}></progress>
+                            <p className={css.targetRise}>${project?.total_raised}</p>
+                            <p className={css.totalRise}>of ${project?.target_raised} collected</p>
+                            <progress id="donationProgress" value={project?.total_raised} max={project?.target_raised} className={css.progress}></progress>
                         </div>
                         </div>
                     }
