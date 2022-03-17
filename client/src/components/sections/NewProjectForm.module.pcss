@@ -2,7 +2,8 @@
     display: flex;
     flex-direction:column;
     width:100%;
-    margin-top:30px
+    margin-top:30px;
+    /* position:relative; */
 }
 .input{
     background-color: #010748;
@@ -27,7 +28,7 @@
     z-index: -1;
 }
 .fileLabel{
-    top:80px;
+    top:90px;
     right:30px;
     position:absolute;
     cursor:pointer;
@@ -55,7 +56,50 @@
 }
 .selectedImage{
     position:absolute;
-    
+}
+.image {
+    position: relative;
+    max-width: 110px;
+    height: 110px;
+    margin-bottom: 10px;
+    margin-right: 0;
+    z-index: 1;
+  }
+.imageWrapper {
+    position:absolute;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 110px;
+    height: 110px;
+    left:5px;
+    top:5px;
+}
+.socialMediaTitle{
+    margin: 15px 0 0;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(to right, #5e21d2, #1f63e1);
+    padding: 10px 15px;
+    border-radius: 20px; 
+}
+.createButton{
+    margin-top: 20px;
+    width:100%
+}
+.popupContent{
+      text-align: center;
+      margin-top: 100px;
+}
+.popupTitle{
+      font-size: 28px;
+      line-height: 34px;
+      font-wieght: bold;
+      margin: 20px;
+}
+@media (min-width: 436px) {
+    .fileLabel{
+        top:50px;
+    }
 }
 @media (min-width: 768px) {
     .fileLabel{
@@ -75,52 +119,24 @@
     .form{
         margin-top:80px
     }
-}
-
-.image {
-    position: relative;
-    max-width: 176px;
-    height: 176px;
-    margin-bottom: 10px;
-    margin-right: 0;
-    z-index: 1;
-  }
-  .imageWrapper {
-      position:absolute;
-    border-radius: 50%;
-    overflow: hidden;
-    width: 176px;
-    height: 176px;
-    left:5px;
-    top:5px;
-  }
-  .socialMediaTitle{
-    margin: 15px 0 0;
-    font-weight: bold;
-    cursor: pointer;
-    background: linear-gradient(to right, #5e21d2, #1f63e1);
-    /* color: #010748; */
-    padding: 10px 15px;
-    border-radius: 20px;
-    
-  }
-  .createButton{
-      position:absolute;
-      bottom:10px;
-      right:6%;
-  }
-  .popupContent{
-      text-align: center;
-      margin-top: 100px;
-  }
-  .popupTitle{
-      font-size: 28px;
-      line-height: 34px;
-      font-wieght: bold;
-      margin: 20px;
-  }
-  @media (min-width: 768px) { 
-      .popupContent{
-          margin-top: 250px;
+    .popupContent{
+        margin-top: 250px;
+    }
+    .image {
+        position: relative;
+        max-width: 176px;
+        height: 176px;
+        margin-bottom: 10px;
+        margin-right: 0;
+        z-index: 1;
       }
-  }
+    .imageWrapper {
+        position:absolute;
+        border-radius: 50%;
+        overflow: hidden;
+        width: 176px;
+        height: 176px;
+        left:5px;
+        top:5px;
+    }
+}

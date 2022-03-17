@@ -73,9 +73,8 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
             },
         });
         const data = await res.json();
-        data.forEach((o: { id: any }, i: number) => (o.id = i + 1));
+        data.forEach((o: { id: number }, i: number) => (o.id = i + 1));
         setCurrenciesList(data);
-        console.log(data);
     };
 
     useEffect(() => {
@@ -192,7 +191,12 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
                     handleSelectedValuesChange={(selectedOptions) => handleSelectedCurrencies(selectedOptions)}
                     isMultiple
                 />
-                <button type="submit">Click me</button>
+                <Button 
+                    type='submit'
+                    buttonClassName={css.createButton}    
+                >
+                    Create Project
+                </Button>
             </form>
             <Popup 
                 isPopupOpened={isProjectCreated}

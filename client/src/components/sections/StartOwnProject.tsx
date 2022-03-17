@@ -4,6 +4,7 @@ import * as css from './StartOwnProject.module.pcss';
 import { NextIcon } from "../images/NextIcon";
 import { NewProjectType } from "./NewProjectType";
 import { NewProjectForm } from "./NewProjectForm";
+import { BackIcon } from "../images/BackIcon";
 
 interface StartOwnProjectProps {
     onCancleClick: ()=>void;
@@ -45,7 +46,7 @@ export const StartOwnProject = ({onCancleClick} : StartOwnProjectProps) => {
             <div className={css.buttonContainer}>
                 <Button onClick={()=>handleBackClick()} buttonClassName={css.cancleButton}>
                     {isProjectTypeStep && 'Cancle'}
-                    {isProjectDataStep && 'Back'}
+                    {isProjectDataStep && <span className={css.backButton}><BackIcon/> Back</span>}
                 </Button>
                 { isProjectTypeStep && 
                 <Button onClick={()=>handleNextClick()} buttonClassName={css.nextButton}>

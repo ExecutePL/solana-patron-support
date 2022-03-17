@@ -55,7 +55,7 @@ export const Project = () => {
                                         <span>verified</span>
                                     </div>
                                 ) : null}
-                        <img src={project?.foto_src ? project.foto_src : project1} alt={project?.name} className={css.image}/>
+                        <img src={project?.foto_src} alt={project?.name} className={css.image}/>
                         <p className={css.decription}>{project?.description}</p>
                         {project?.socials && <SocialMedia 
                             facebookLink={project?.socials[0].facebook}
