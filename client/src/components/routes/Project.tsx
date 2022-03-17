@@ -15,27 +15,27 @@ export const Project = () => {
     const params = useParams();
     const uuid = params.uuid;
     const [isDonatePopupOpened, setIsDonatePopupOpened] = useState<boolean>(false);
-    const [selectedDonationType, setSelectedDonationType] = useState<DonationType>('one-time');
+    const [selectedDonationType, setSelectedDonationType] = useState<DonationType>('One-Time Donation');
     const [project, setProject] = useState<ProjectData>();
-    console.log(project)
+    console.log(project);
 
-    const getProjectsList = async (uuid:string) => {
+    const getProjectsList = async (uuid: string) => {
         const res = await fetch('/api/get/one-organization', {
             method: 'POST',
             body: JSON.stringify({
-                uuid
+                uuid,
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
         });
         const data = await res.json();
-        setProject(data)
+        setProject(data);
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         uuid && getProjectsList(uuid);
-    }, [uuid])
+    }, [uuid]);
 
     const publicKey = useWallet();
     if (publicKey.publicKey) {
@@ -43,33 +43,47 @@ export const Project = () => {
     }
     return (
         <>
-        <div className={css.container}>
-            <Link to='/' className={css.allProjectsLink}><BackIcon />All Projects</Link>
-            <BaseContainer 
-                title={project?.name} 
-                containerContent={
-                    <div className={css.content}>
-                        {project?.verified ? (
-                                    <div className={css.verifiedStatus}>
-                                        <img src={verifiedIcon} />
-                                        <span>verified</span>
-                                    </div>
-                                ) : null}
-                        <img src={project?.foto_src ? project.foto_src : project1} alt={project?.name} className={css.image}/>
-                        <p className={css.decription}>{project?.description}</p>
-                        {project?.socials && <SocialMedia 
-                            facebookLink={project?.socials[0].facebook}
-                            instagramLink={project?.socials[0].instagram}
-                            twitterLink={project?.socials[0].twitter}
-                            telegramLink={project?.socials[0].telegram}
-                            discordLink={project?.socials[0].discord}
-                        />}
-                        <div className={css.progressContainer}>
-                            <p className={css.progressLabel}>Donation progress: </p>
-                            <p className={css.targetRise}>${project?.total_raised}</p>
-                            <p className={css.totalRise}>of ${project?.target_raised} collected</p>
-                            <progress id="donationProgress" value={project?.total_raised} max={project?.target_raised} className={css.progress}></progress>
-                        </div>
+            <div className={css.container}>
+                <Link to="/" className={css.allProjectsLink}>
+                    <BackIcon />
+                    All Projects
+                </Link>
+                <BaseContainer
+                    title={project?.name}
+                    containerContent={
+                        <div className={css.content}>
+                            {project?.verified ? (
+                                <div className={css.verifiedStatus}>
+                                    <img src={verifiedIcon} />
+                                    <span>verified</span>
+                                </div>
+                            ) : null}
+                            <img
+                                src={project?.foto_src ? project.foto_src : project1}
+                                alt={project?.name}
+                                className={css.image}
+                            />
+                            <p className={css.decription}>{project?.description}</p>
+                            {project?.socials && (
+                                <SocialMedia
+                                    facebookLink={project?.socials[0].facebook}
+                                    instagramLink={project?.socials[0].instagram}
+                                    twitterLink={project?.socials[0].twitter}
+                                    telegramLink={project?.socials[0].telegram}
+                                    discordLink={project?.socials[0].discord}
+                                />
+                            )}
+                            <div className={css.progressContainer}>
+                                <p className={css.progressLabel}>Donation progress: </p>
+                                <p className={css.targetRise}>${project?.total_raised}</p>
+                                <p className={css.totalRise}>of ${project?.target_raised} collected</p>
+                                <progress
+                                    id="donationProgress"
+                                    value={project?.total_raised}
+                                    max={project?.target_raised}
+                                    className={css.progress}
+                                ></progress>
+                            </div>
                         </div>
                     }
                     buttonContent={<span>Donate</span>}
