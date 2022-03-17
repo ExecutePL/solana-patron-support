@@ -4,6 +4,7 @@
 .text {
     text-align: center;
     margin-bottom: 16px;
+    color: white;
 }
 
 .value {
@@ -12,6 +13,7 @@
     font-size: 48px;
     font-weight: 700;
     line-height: 64px;
+    color: white;
 }
 
 .buttons {
@@ -40,21 +42,21 @@
 
 :global(html.light) .button {
     background: var(--theme-light-numpad-button-background);
-    color: var(--theme-light-numpad-button-color);
+    color: white;
 
     &:hover {
-        background: var(--theme-light-numpad-button-hover);
+        background: var(--theme-dark-numpad-button-hover);
     }
 
     &:active {
-        background: var(--theme-light-numpad-button-active);
+        background: var(--theme-dark-numpad-button-active);
     }
 }
 
 
 :global(html.dark) .button {
     background: var(--theme-dark-numpad-button-background);
-    color: var(--theme-dark-numpad-button-color);
+    color: white;
 
     &:hover {
         background: var(--theme-dark-numpad-button-hover);

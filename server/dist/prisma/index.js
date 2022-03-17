@@ -158,13 +158,29 @@ const getTransaction = () => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 exports.getTransaction = getTransaction;
-const createTransaction = (amount, donator_adress, organizationId, currencyId) => __awaiter(void 0, void 0, void 0, function* () {
+const createTransaction = (amount, donator_adress, organizationWallet, currencyName) => __awaiter(void 0, void 0, void 0, function* () {
+    const organizationId = yield prisma.organization.findMany({
+        where: {
+            adress: organizationWallet,
+        },
+        select: {
+            id: true,
+        },
+    });
+    const currencyId = yield prisma.currency.findMany({
+        where: {
+            name: currencyName,
+        },
+        select: {
+            id: true,
+        },
+    });
     return yield prisma.transaction.create({
         data: {
             amount,
             donator_adress,
-            organizationId,
-            currencyId,
+            organizationId: organizationId[0].id,
+            currencyId: currencyId[0].id,
         },
     });
 });

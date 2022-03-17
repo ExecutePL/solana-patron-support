@@ -1,4 +1,5 @@
 import { CurrencyType, PrismaClient } from '@prisma/client';
+import { equal } from 'assert';
 import { v4 as uuidv4 } from 'uuid';
 
 const prisma = new PrismaClient();
@@ -179,15 +180,44 @@ export const getTransaction = async () => {
 export const createTransaction = async (
   amount: number,
   donator_adress: string,
-  organizationId: number,
-  currencyId: number
+  organizationWallet: string,
+  currencyName: string
 ) => {
+  const organizationId = await prisma.organization.findMany({
+    where: {
+      adress: organizationWallet,
+    },
+    select: {
+      id: true,
+    },
+  });
+  const currencyId = await prisma.currency.findMany({
+    where: {
+      name: currencyName,
+    },
+    select: {
+      id: true,
+    },
+  });
+  
+ await prisma.organization.update({
+    where: {
+      id: organizationId[0].id
+    },
+    data: {
+      total_raised: {
+        increment: amount
+      }
+    }
+  })
   return await prisma.transaction.create({
     data: {
       amount,
       donator_adress,
-      organizationId,
-      currencyId,
+      organizationId: organizationId[0].id,
+      currencyId: currencyId[0].id,
     },
+
   });
-};
+
+}

@@ -63,6 +63,7 @@ export const Donation = ({ selectedDonationType, onDonationTypeClick, organizati
         console.log(link)
         navigate(link);
     }
+    console.log(currenciesList)
 
     return (
         <div className={css.container}>
