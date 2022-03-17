@@ -1,14 +1,14 @@
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
 import {
-  getOrganization,
-  createOrganization,
-  getSocial_medias,
-  createSocial_medias,
-  getCurrency,
   createCurrency,
-  getTransaction,
+  createOrganization,
+  createSocial_medias,
   createTransaction,
+  getCurrency,
+  getOrganization,
+  getSocial_medias,
+  getTransaction,
 } from '../../prisma/index';
 
 export class Actions {
@@ -42,18 +42,14 @@ export class Actions {
       telegram,
       twitter,
       currencyId,
-    } = req.body.data;
-    // const { data } = req.body;
+    } = JSON.parse(req.body.data);
 
-    const organization_foto_src = `uploads/${req.file?.filename}`;
-    console.log(req.body);
-
-    console.log(organization_foto_src);
+    const organization_foto_src = `${req.headers.host}/uploads/${req.file?.filename}`;
 
     createOrganization(
       organization_name,
       description,
-      '',
+      organization_foto_src,
       target_raised,
       organization_adress,
       type,

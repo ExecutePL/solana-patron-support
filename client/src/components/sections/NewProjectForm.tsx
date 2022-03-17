@@ -11,13 +11,19 @@ interface NewProjectProps {
 export const NewProjectForm = ({ projectType }: NewProjectProps) => {
     const [formValues, setFormValues] = useState<ProjectFormValues | null>(null);
     const [isSocialMediaOpened, setSocialMediaOpened] = useState<boolean>(false);
-    const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+    const [uploadedFile, setUploadedFile] = useState<File | any>(null);
+    const [uploadedFileObjURL, setUploadedFileObjURL] = useState<string>('');
 
     console.log(formValues);
 
     useEffect(() => {
         setFormValues({ ...formValues, type: projectType });
     }, []);
+
+    useEffect(() => {
+        if (!uploadedFile) return;
+        setUploadedFileObjURL(URL.createObjectURL(uploadedFile));
+    }, [uploadedFile]);
 
     const selectedLogo = uploadedFile && URL.createObjectURL(uploadedFile);
     console.log(selectedLogo);
@@ -30,8 +36,9 @@ export const NewProjectForm = ({ projectType }: NewProjectProps) => {
 
     const createProject = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log({ ...formValues });
+
         const formData = new FormData();
+
         if (uploadedFile) {
             formData.append('file', uploadedFile, uploadedFile.name);
         }
@@ -41,9 +48,6 @@ export const NewProjectForm = ({ projectType }: NewProjectProps) => {
 
         const res = await fetch('/api/create/organization', {
             method: 'POST',
-            // headers: {
-            //     'Content-Type': 'undefined',
-            // },
             body: formData,
         });
         const data = await res.json();
@@ -53,12 +57,12 @@ export const NewProjectForm = ({ projectType }: NewProjectProps) => {
         <>
             <form className={css.form} onSubmit={(e) => createProject(e)}>
                 <label htmlFor="logo" className={css.fileLabel}>
-                    {!formValues?.organization_foto_src && <img src={addLogoIcon} className={css.addLogoIcon} />}
-
-                    {formValues?.organization_foto_src && (
+                    {uploadedFile ? (
                         <div className={css.imageWrapper}>
-                            <img src={selectedLogo} alt={'userName'} className={css.image} />
+                            <img src={uploadedFileObjURL} alt={'userName'} className={css.image} />
                         </div>
+                    ) : (
+                        <img src={addLogoIcon} className={css.addLogoIcon} />
                     )}
                 </label>
                 <input
