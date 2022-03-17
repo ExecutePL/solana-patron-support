@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { BaseContainer } from '../container/BaseContainer';
 import { BackIcon } from '../images/BackIcon';
@@ -8,8 +8,8 @@ import verifiedIcon from '../images/verifiedIcon.svg';
 import { Popup } from '../popup/Popup';
 import { Donation, DonationType } from '../sections/Donation';
 import project1 from '../images/project1.svg';
-
 import { useWallet } from '@solana/wallet-adapter-react';
+import { SocialMedia } from '../sections/SocialMedia';
 
 export const Project = () => {
     const params = useParams();
@@ -37,6 +37,13 @@ export const Project = () => {
                                 ) : null}
                         <img src={project?.foto_src ? project.foto_src : project1} alt={project?.name} className={css.image}/>
                         <p className={css.decription}>{project?.description}</p>
+                        <SocialMedia 
+                            facebookLink={project?.facebook}
+                            instagramLink={project?.instagram}
+                            twitterLink={project?.twitter}
+                            telegramLink={project?.telegram}
+                            discordLink={project?.discord}
+                        />
                         <div className={css.progressContainer}>
                             <p className={css.progressLabel}>Donation progress: </p>
                             <p className={css.targetRise}>${project?.target_rise}</p>

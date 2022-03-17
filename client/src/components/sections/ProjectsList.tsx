@@ -56,10 +56,15 @@ type Project = {
     verified?: boolean;
     total_rise?: number;
     target_rise?: number;
+    discord?:string;
+    facebook?:string;
+    instagram?:string;
+    twitter?:string;
+    telegram?:string;
 };
 
 export const Projects: Project[] = [
-    { uuid: '1', foto_src: project1, name: 'Project 1', description: 'Lorem ipsum', verified: true, total_rise: 1000, target_rise: 300 },
+    { uuid: '1', foto_src: project1, name: 'Project 1', description: 'Lorem ipsum', verified: true, total_rise: 1000, target_rise: 300, discord:'https://www.facebook.com/', facebook:'https://www.facebook.com/', telegram:'https://www.facebook.com/', instagram:'https://www.facebook.com/', twitter:'https://www.facebook.com/' },
     { uuid: '2', foto_src: project2, name: 'Project 2', description: 'Lorem ipsum', verified: false, total_rise: 1000, target_rise: 100},
     { uuid: '3', foto_src: project1, name: 'Project 3', description: 'Lorem ipsum', verified: false, total_rise: 1000, target_rise: 50 },
     { uuid: '4', foto_src: project1, name: 'Project 4', description: 'Lorem ipsum', verified: true, total_rise: 1000, target_rise: 600 },
