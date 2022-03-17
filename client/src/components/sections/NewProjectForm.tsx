@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { NextIcon } from '../images/NextIcon';
 import { Button } from '../buttons/Button';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 
 interface NewProjectProps {
     projectType: string;
@@ -23,14 +24,21 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
     const publicKey = useWallet();
     const isOrganizationProject = projectType === "organization";
     const isInrevidiulProject = !isOrganizationProject;
+    const { setVisible } = useWalletModal();
 
     const [currenciesList, setCurrenciesList] = useState([]);
     useEffect(() => {
-        if (publicKey.publicKey && isInrevidiulProject) {
-            setFormValues({ ...formValues, type: projectType, organization_adress: publicKey.publicKey.toString() });
-        }else{
+        if(isInrevidiulProject){
+            if (publicKey.publicKey) {
+                setFormValues({ ...formValues, type: projectType, organization_adress: publicKey.publicKey.toString() });
+            }else {
+                setFormValues({ ...formValues, type: projectType });
+                setVisible(true)
+            } 
+        } else {
             setFormValues({ ...formValues, type: projectType });
-        } 
+        }
+        
     }, [publicKey, isInrevidiulProject]);
 
     useEffect(() => {
@@ -53,8 +61,10 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
 
     const createProject = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        const formData = new FormData();
+        if(!formValues?.organization_adress){
+            setVisible(true);
+        } else {
+            const formData = new FormData();
 
         if (uploadedFile) {
             formData.append('file', uploadedFile, uploadedFile.name);
@@ -72,6 +82,7 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
         } else {
             setIsProjectCreated(false)
         }
+        }  
     };
     const getCurrencies = async () => {
         const res = await fetch('/api/get/currency', {
