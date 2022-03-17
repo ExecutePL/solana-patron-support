@@ -38,15 +38,16 @@ export const StartOwnProject = ({onCancleClick} : StartOwnProjectProps) => {
     return (
         <div className={css.container}>
            {isProjectTypeStep && <NewProjectType onTypeClick={(type)=>setSelectedProjectType(type)} selectedProjectType={selectedProjectType}/>}
-           {isProjectDataStep && <NewProjectForm/>}
+           {isProjectDataStep && <NewProjectForm projectType={selectedProjectType}/>}
             <div className={css.buttonContainer}>
                 <Button onClick={()=>handleBackClick()} buttonClassName={css.cancleButton}>
                     {isProjectTypeStep && 'Cancle'}
                     {isProjectDataStep && 'Back'}
                 </Button>
+                { isProjectTypeStep && 
                 <Button onClick={()=>handleNextClick()} buttonClassName={css.nextButton}>
                     <div className={css.nextButtonContent}><span>Next</span> <NextIcon/></div>
-                </Button> 
+                </Button> }
             </div>     
         </div>
     )

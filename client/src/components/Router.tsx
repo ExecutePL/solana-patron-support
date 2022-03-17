@@ -24,7 +24,7 @@ export const Router: FC = () => {
                 <Route element={<Layout />}>
                     <Route path="/" element={<Home />} />
                     <Route
-                        path="/project/:id"
+                        path="/project/:uuid"
                         element={
                             <AppWrapper>
                                 <Project />

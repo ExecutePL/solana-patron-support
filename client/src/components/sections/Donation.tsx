@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Item, RadioGroup } from "../radioGroup/RadioGroup";
 import * as css from './Donation.module.pcss';
+import {Option, Select} from '../select/Select';
 
 export type DonationType = 'one-time' | 'colatteral';
 
@@ -10,6 +11,11 @@ interface DonationProps {
 }
 
 export const Donation = ({selectedDonationType, onDonationTypeClick} : DonationProps) => {
+    const [selectedCurrencies, setSelectedCurrencies] = useState<Option[]>();
+    const handleSelectedCurrencies = (selectedCurrency:Option[]) => {
+        setSelectedCurrencies(selectedCurrency)
+    } 
+    console.log(selectedCurrencies)
     return (
           <div className={css.container}>
                 <p className={css.title}>Donation type: </p>
@@ -20,13 +26,12 @@ export const Donation = ({selectedDonationType, onDonationTypeClick} : DonationP
                     radioGroupClassName={css.radioGroup}
                 />
                 <div className={css.currencyContainer}>
-                    <label htmlFor="currenciesSelect" className={css.title}>Currency</label>
-                    <select name="currencies" id="currenciesSelect" className={css.select}>
-                        <option value=''>- Select currency -</option>
-                        {currencies.map((currency)=>(
-                            <option key={currency} value={currency} className={css.option}>{currency}</option>
-                        ))}
-                    </select>
+                <Select 
+                    options={currencies} 
+                    selectName="currency" 
+                    defaultOption='- Select currenies -' 
+                    label='Currencies: ' 
+                    handleSelectedValuesChange={(selectedOptions)=>handleSelectedCurrencies(selectedOptions)} />
                 </div>
             </div>
     )
@@ -44,4 +49,17 @@ const donationTypes: Item[] = [
 
 ]
 
-const currencies = ['SOL', 'USDT', 'USDC'];
+const currencies = [
+    {
+        name:'SOL',
+        id: 1,
+    },
+    {
+        name:'USDT',
+        id: 2
+    },
+    {
+        name:'USDC',
+        id: 3
+    }
+];

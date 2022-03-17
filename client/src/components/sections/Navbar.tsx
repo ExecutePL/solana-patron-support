@@ -1,12 +1,11 @@
-import React, { FC, ReactNode, useMemo, useState } from 'react';
+import React, { FC, ReactNode, useState } from 'react';
 import * as css from './Navbar.module.pcss';
 import logo from '../images/logo.svg';
 import { Link } from 'react-router-dom';
-import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
-import { TorusWalletAdapter } from '@solana/wallet-adapter-torus';
 import { Button } from '../buttons/Button';
 import { Popup } from '../popup/Popup';
 import { StartOwnProject } from './StartOwnProject';
+import cx from 'classnames/bind';
 
 export interface NavbarProps {
     children: ReactNode;
@@ -27,7 +26,8 @@ export const Navbar: FC<NavbarProps> = ({ children }) => {
                         onClick={() => setIsStartPopupOpened(true)}
                         onMouseEnter={() => setIsButtonHover(true)}
                         onMouseLeave={() => setIsButtonHover(false)}
-                        buttonClassName={isButtonHover && css.startButton}
+                        buttonClassName={cx(css.button, { [css.hoveredButton] : isButtonHover})}
+
                     >
                         {isButtonHover ? 'Get Start' : '+ Start Own Project'}
                     </Button>

@@ -1,6 +1,6 @@
 .navbarContainer {
     display: inline-block;
-    padding: 15px 20px;
+    padding: 15px 20px 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -8,7 +8,7 @@
 .logo {
     flex: 1;
 }
-.startButton {
+.hoveredButton {
     transition: all 0.5s ease;
     background: #14f195 !important;
     color: #000546 !important;
@@ -27,3 +27,24 @@
 .wallet-adapter-dropdown {
     flex: 1;
 }
+.button{
+    position:absolute;
+    right:20px;
+    top: 80px;
+    font-size:15px;
+    height: 40px;
+    width:90%
+}
+@media (min-width: 768px) { 
+    .button{
+        position:relative;
+        right:auto;
+        top: auto;
+        font-size: 18px;
+        height: 50px;
+        width:230px;
+    }
+    .navbarContainer {
+        padding: 15px 20px;
+    }
+ }
