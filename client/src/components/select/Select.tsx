@@ -18,7 +18,13 @@ interface SelectProps {
     isMultiple?:boolean;
 }
 
-export const Select = ({options,  title, handleSelectedValuesChange, isMultiple, defaultOption}:SelectProps) => {
+export const Select = ({
+    options,  
+    title, 
+    handleSelectedValuesChange,
+    isMultiple=false, 
+    defaultOption
+}:SelectProps) => {
     const [selectedOptions, setSelectedOptions] = useState<Option[] | null >(null);
     const [isOptionOpened, setIsOptionOpened] = useState<boolean>(false);
     const isOptionSelected = selectedOptions && selectedOptions?.length > 0;

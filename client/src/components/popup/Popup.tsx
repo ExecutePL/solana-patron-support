@@ -1,7 +1,6 @@
 import React, { HTMLAttributes, ReactNode } from 'react';
 import { Button } from '../buttons/Button';
 import { BaseContainer } from '../container/BaseContainer';
-import { useAppContext } from '../contexts/UserWallet';
 import { CloseIcon } from '../images/CloseIcon';
 import { Overlay } from '../overlay/Overlay';
 import * as css from './Popup.module.pcss';
@@ -15,8 +14,6 @@ interface PopupProps {
 
 export const Popup = ({ title, content, onClose, isPopupOpened }: PopupProps) => {
     const isPopupClosed = !isPopupOpened;
-    // const context = useAppContext();
-    // console.log(context);
     if (isPopupClosed) return null;
     return (
         <>

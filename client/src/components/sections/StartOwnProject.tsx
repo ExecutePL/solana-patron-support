@@ -9,13 +9,11 @@ interface StartOwnProjectProps {
     onCancleClick: ()=>void;
 }
 
-type StartOwnProjectStep = 'projectType' | 'projectData'
-
 export type SelectedProjectType = 'indyvidual' | 'organization';
 
 export const StartOwnProject = ({onCancleClick} : StartOwnProjectProps) => {
-    const [step, setStep] = useState<StartOwnProjectStep>('projectType');
-    const [selectedProjectType, setSelectedProjectType] = useState<SelectedProjectType>('organization');
+    const [step, setStep] = useState<string>('projectType');
+    const [selectedProjectType, setSelectedProjectType] = useState<string>('organization');
 
     const isProjectTypeStep = step==='projectType';
     const isProjectDataStep = step==='projectData';
@@ -35,10 +33,15 @@ export const StartOwnProject = ({onCancleClick} : StartOwnProjectProps) => {
             setStep('projectType')
         }
     }
+    const handleDataStepClose = (isCloseClicked: boolean) => {
+        if(isCloseClicked){
+            onCancleClick();
+        }
+    }
     return (
         <div className={css.container}>
            {isProjectTypeStep && <NewProjectType onTypeClick={(type)=>setSelectedProjectType(type)} selectedProjectType={selectedProjectType}/>}
-           {isProjectDataStep && <NewProjectForm projectType={selectedProjectType}/>}
+           {isProjectDataStep && <NewProjectForm projectType={selectedProjectType} handleCloseClick={(isCloseClicked)=>handleDataStepClose(isCloseClicked)}/>}
             <div className={css.buttonContainer}>
                 <Button onClick={()=>handleBackClick()} buttonClassName={css.cancleButton}>
                     {isProjectTypeStep && 'Cancle'}

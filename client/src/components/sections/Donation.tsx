@@ -74,7 +74,7 @@ export const Donation = ({ selectedDonationType, onDonationTypeClick }: Donation
                     options={isCollateral(selectedDonationType)}
                     selectName="currency"
                     defaultOption="- Select currenies -"
-                    label="Currencies: "
+                    title="Currencies: "
                     handleSelectedValuesChange={(selectedOptions) => handleSelectedCurrencies(selectedOptions)}
                 />
             </div>
