@@ -28,7 +28,6 @@ export const Select = ({
     const [selectedOptions, setSelectedOptions] = useState<Option[] | null >(null);
     const [isOptionOpened, setIsOptionOpened] = useState<boolean>(false);
     const isOptionSelected = selectedOptions && selectedOptions?.length > 0;
-
     const [optionsNames, setOptionNames] = useState<string | null>(null);
 
     useEffect(()=> {
