@@ -11,8 +11,7 @@ interface NewProjectProps {
 export const NewProjectForm = ({ projectType }: NewProjectProps) => {
     const [formValues, setFormValues] = useState<ProjectFormValues | null>(null);
     const [isSocialMediaOpened, setSocialMediaOpened] = useState<boolean>(false);
-    const [currenciesList, setCurrenciesList] = useState([]);
-    console.log(formValues);
+    const [currenciesList, setCurrenciesList] = u;
 
     useEffect(() => {
         setFormValues({ ...formValues, type: projectType });
@@ -51,7 +50,6 @@ export const NewProjectForm = ({ projectType }: NewProjectProps) => {
         const data = await res.json();
         data.forEach((o: { id: any }, i: number) => (o.id = i + 1));
         setCurrenciesList(data);
-        console.log(data);
     };
 
     useEffect(() => {
@@ -175,21 +173,6 @@ export const NewProjectForm = ({ projectType }: NewProjectProps) => {
         </>
     );
 };
-
-const currencies = [
-    {
-        name: 'SOL',
-        id: 1,
-    },
-    {
-        name: 'USDT',
-        id: 2,
-    },
-    {
-        name: 'USDC',
-        id: 3,
-    },
-];
 
 type ProjectFormValues = {
     organization_name?: string;
