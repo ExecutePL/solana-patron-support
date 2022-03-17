@@ -64,7 +64,7 @@ export class Actions {
       currencyId,
     } = JSON.parse(req.body.data);
 
-    const organization_foto_src = `${req.headers.location}/uploads/${req.file?.filename}`;
+    const organization_foto_src = `${req.headers.origin}/uploads/${req.file?.filename}`;
 
     createOrganization(
       organization_name,
