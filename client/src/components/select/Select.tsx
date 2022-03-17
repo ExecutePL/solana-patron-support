@@ -1,67 +1,85 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import * as css from './Select.module.pcss';
 import cx from 'classnames/bind';
+import checkIcon from '../../images/check.svg'
 
 export type Option = {
     id:number;
     name: string;
+    foto_src?:string;
 }
 
 interface SelectProps {
     options: Option[];
     defaultOption?: string;
     selectName:string;
-    label?:string;
-    handleSelectedValuesChange:(selectedOptions:any)=>void;
+    title?:string;
+    handleSelectedValuesChange:(selectedOptions?:Option[])=>void;
     isMultiple?:boolean;
 }
 
-export const Select = ({options, selectName, label, handleSelectedValuesChange, isMultiple}:SelectProps) => {
-    const [selectedOptions, setSelectedOptions] = useState<any>();
-    const [selectedValues, setSelectedValues] = useState<string[]>([]);
+export const Select = ({options,  title, handleSelectedValuesChange, isMultiple, defaultOption}:SelectProps) => {
+    const [selectedOptions, setSelectedOptions] = useState<Option[] | null >(null);
+    const [isOptionOpened, setIsOptionOpened] = useState<boolean>(false);
+    const isOptionSelected = selectedOptions && selectedOptions?.length > 0;
 
+    const [optionsNames, setOptionNames] = useState<string | null>(null);
 
-    useEffect(()=>{
+    useEffect(()=> {
         if(selectedOptions){
-            const values = selectedOptions.map((option:Option)=>option.name);
-            setSelectedValues(values.toString());
-            handleSelectedValuesChange(selectedOptions);
+             const optionsNames = selectedOptions.map((option)=>option.name);
+            setOptionNames(optionsNames.toString());
         }
-        
-    }, [selectedOptions])
+        if(!isMultiple){
+            setIsOptionOpened(false);
+        }
+        handleSelectedValuesChange(selectedOptions || [])
+    },[isMultiple, selectedOptions]);
 
-    const handleSelectChange = (selectedOption:string) => {
-        const checkedOption = options.find((option)=>option.name === selectedOption)
+    const handleSelectChange = (selectedOption:Option) => {
         if(isMultiple){
-            if(selectedOptions){
-            const selectedOption = selectedOptions.find((option:Option) => option === checkedOption);
-            if(selectedOption){
-                const filter = selectedOptions.filter((value:Option)=>value!=selectedOption);
-                setSelectedOptions(filter);
-            }else{
-                setSelectedOptions([...selectedOptions, checkedOption]);
-            }
-        }else{
-            setSelectedOptions([checkedOption]);
+            if(selectedOptions) {
+                const isOptionSelected = selectedOptions.find((option) => option === selectedOption);
+                if (isOptionSelected) {
+                    const filter = selectedOptions.filter((option:Option)=>option!=isOptionSelected);
+                    setSelectedOptions(filter);
+                } else {
+                    setSelectedOptions([...selectedOptions, selectedOption]);
+                }
+
+            } else {
+                setSelectedOptions([selectedOption])
+            }  
+        } else {
+            setSelectedOptions([selectedOption]);
         }
-        }else {
-            setSelectedOptions([checkedOption])
-        }
-         
     }
+
     return (
         <div className={css.container}>
-            {label && <label htmlFor={selectName} className={css.title}>{label}</label>}
-            <div className={css.selectedOptionsContainer}><span className={css.selectedOptions}>{selectedValues ?  selectedValues : 'please, select currency'}</span></div>
-            <select name={selectName} id={selectName} className={css.select} onChange={ (e)=>handleSelectChange(e.target.value) } >
-                {options.map((option)=>{
-                    const isSelected = selectedOptions && selectedOptions.find((item:Option) => item === option)
-                    return (
-                    <option key={option.id} value={option.name} className={cx(css.option, {[css.isOptionSelected]: isSelected})}>
-                        {option.name}                 
-                    </option>
-                    )})}
-            </select>
+            <p className={css.title}>{title}</p>
+            <div 
+                className={css.select}
+                onClick={()=>setIsOptionOpened(!isOptionOpened)}
+            >
+                {isOptionSelected ? optionsNames : defaultOption}
+            </div>
+            {isOptionOpened && 
+                <ul className={css.optionList}>
+                    {options.map((option)=>{
+                        const isSelected = selectedOptions && selectedOptions.find((item:Option) => item === option);
+                        return (
+                            <li key={option.name} className={cx(css.option, { [css.isOptionSelected]: isSelected})} onClick={()=>handleSelectChange(option)}>
+                                {option.foto_src && <div className={css.logo}
+                                    dangerouslySetInnerHTML={{__html: option.foto_src}}
+                                />}
+                                {option.name}
+                                {isSelected && <img src={checkIcon} className={css.checkIcon}/>}
+                            </li>
+                        )
+                    })}
+                </ul>
+            }
         </div>
     )
 }
