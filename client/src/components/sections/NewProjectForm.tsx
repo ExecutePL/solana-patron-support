@@ -6,6 +6,8 @@ import { Popup } from '../popup/Popup';
 import { useNavigate } from "react-router-dom";
 import { NextIcon } from '../images/NextIcon';
 import { Button } from '../buttons/Button';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 
 interface NewProjectProps {
     projectType: string;
@@ -19,11 +21,25 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
     const [uploadedFileObjURL, setUploadedFileObjURL] = useState<string>('');
     const [isProjectCreated, setIsProjectCreated] = useState<boolean>(false);
     const navigate = useNavigate(); 
+    const publicKey = useWallet();
+    const isOrganizationProject = projectType === "organization";
+    const isInrevidiulProject = !isOrganizationProject;
+    const { setVisible } = useWalletModal();
 
     const [currenciesList, setCurrenciesList] = useState([]);
     useEffect(() => {
-        setFormValues({ ...formValues, type: projectType });
-    }, []);
+        if(isInrevidiulProject){
+            if (publicKey.publicKey) {
+                setFormValues({ ...formValues, type: projectType, organization_adress: publicKey.publicKey.toString() });
+            }else {
+                setFormValues({ ...formValues, type: projectType });
+                setVisible(true)
+            } 
+        } else {
+            setFormValues({ ...formValues, type: projectType });
+        }
+        
+    }, [publicKey, isInrevidiulProject]);
 
     useEffect(() => {
         if (!uploadedFile) return;
@@ -45,8 +61,10 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
 
     const createProject = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        const formData = new FormData();
+        if(!formValues?.organization_adress){
+            setVisible(true);
+        } else {
+            const formData = new FormData();
 
         if (uploadedFile) {
             formData.append('file', uploadedFile, uploadedFile.name);
@@ -64,6 +82,7 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
         } else {
             setIsProjectCreated(false)
         }
+        }  
     };
     const getCurrencies = async () => {
         const res = await fetch('/api/get/currency', {
@@ -73,9 +92,8 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
             },
         });
         const data = await res.json();
-        data.forEach((o: { id: any }, i: number) => (o.id = i + 1));
+        data.forEach((o: { id: number }, i: number) => (o.id = i + 1));
         setCurrenciesList(data);
-        console.log(data);
     };
 
     useEffect(() => {
@@ -102,6 +120,16 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
                     required
                     onChange={(e) => setUploadedFile(e.target.files && e.target.files[0])}
                 />
+                {isOrganizationProject && <><label htmlFor="name" className={css.label}>
+                    Organization Wallet ID
+                </label>
+                <input
+                    id="name"
+                    type="text"
+                    className={css.input}
+                    required
+                    onChange={(e) => setFormValues({ ...formValues,  organization_adress: e.target.value })}
+                /></>}
                 <label htmlFor="name" className={css.label}>
                     Name of project
                 </label>
@@ -192,7 +220,12 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
                     handleSelectedValuesChange={(selectedOptions) => handleSelectedCurrencies(selectedOptions)}
                     isMultiple
                 />
-                <button type="submit">Click me</button>
+                <Button 
+                    type='submit'
+                    buttonClassName={css.createButton}    
+                >
+                    Create Project
+                </Button>
             </form>
             <Popup 
                 isPopupOpened={isProjectCreated}

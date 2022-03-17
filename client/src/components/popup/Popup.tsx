@@ -2,6 +2,7 @@ import React, { HTMLAttributes, ReactNode } from 'react';
 import { Button } from '../buttons/Button';
 import { BaseContainer } from '../container/BaseContainer';
 import { CloseIcon } from '../images/CloseIcon';
+import { PatronusLandLogo } from '../images/PatronusLandLogo/PatronusLandLogo';
 import { Overlay } from '../overlay/Overlay';
 import * as css from './Popup.module.pcss';
 
@@ -21,7 +22,8 @@ export const Popup = ({ title, content, onClose, isPopupOpened }: PopupProps) =>
                 <Button onClick={onClose} buttonClassName={css.closeButton}>
                     <CloseIcon />
                 </Button>
-                <BaseContainer title={title} containerContent={content} />
+                <BaseContainer title={title} containerContent={
+                    <>{content}<div className={css.logo}><PatronusLandLogo /></div></>} />
             </div>
             <Overlay />
         </>

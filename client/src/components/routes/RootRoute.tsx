@@ -6,21 +6,13 @@ import { PublicKey } from '@solana/web3.js';
 import React, { FC, useMemo } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import { DEVNET_ENDPOINT, DEVNET_DUMMY_MINT } from '../../utils/constants';
-import { Layout } from '../container/Layout';
 import { ConfigProvider } from '../contexts/ConfigProvider';
 import { FullscreenProvider } from '../contexts/FullscreenProvider';
 import { PaymentProvider } from '../contexts/PaymentProvider';
 import { ThemeProvider } from '../contexts/ThemeProvider';
 import { TransactionsProvider } from '../contexts/TransactionsProvider';
-import { AppWrapper } from '../contexts/UserWallet';
-import { SolanaPayLogo } from '../images/SolanaPayLogo';
 import { SOLIcon } from '../images/SOLIcon';
-import { Footer } from '../sections/Footer';
-import { HeroSlider } from '../sections/HeroSlider';
-import { Navbar } from '../sections/Navbar';
-import { ProjectsList } from '../sections/ProjectsList';
 import { Home } from './Home';
-import * as css from './RootRoute.module.pcss';
 
 export const RootRoute: FC = () => {
     // If you're testing without a phone, set this to true to allow a browser-based wallet connection to be used
@@ -31,21 +23,33 @@ export const RootRoute: FC = () => {
     );
 
     const [params] = useSearchParams();
-    const { recipient, label } = useMemo(() => {
-        let recipient: PublicKey | undefined, label: string | undefined;
+    const { recipient, label, currency, decimals, minDecimals } = useMemo(() => {
+        let recipient: PublicKey | undefined, 
+        label: string | undefined, 
+        currency: string | undefined,
+        decimals: number | undefined,
+        minDecimals: number | undefined;
 
         const recipientParam = params.get('recipient');
         const labelParam = params.get('label');
+        const currencyParam = params.get('curr');
+        const decimalsParam = params.get('decimals');
+        const minDecimalsParam = params.get('minDecimals');
+
         if (recipientParam && labelParam) {
             try {
                 recipient = new PublicKey(recipientParam);
                 label = labelParam;
+                currency = currencyParam ? currencyParam :  'USDC';
+                decimals = decimalsParam ? Number(decimalsParam) : 6;
+                minDecimals = minDecimalsParam ? Number(minDecimalsParam) : 2;
+
             } catch (error) {
                 console.error(error);
             }
         }
 
-        return { recipient, label };
+        return { recipient, label, currency, decimals, minDecimals };
     }, [params]);
 
     return (
@@ -59,10 +63,10 @@ export const RootRoute: FC = () => {
                                     recipient={recipient}
                                     splToken={DEVNET_DUMMY_MINT}
                                     label={label}
-                                    symbol="USDC"
+                                    symbol={currency ? currency : 'USDC'}
                                     icon={<SOLIcon />}
-                                    decimals={6}
-                                    minDecimals={2}
+                                    decimals={decimals}
+                                    minDecimals={minDecimals}
                                     connectWallet={connectWallet}
                                 >
                                     <TransactionsProvider>

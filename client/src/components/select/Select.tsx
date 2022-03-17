@@ -25,11 +25,10 @@ export const Select = ({
     isMultiple=false, 
     defaultOption
 }:SelectProps) => {
-    const [selectedOptions, setSelectedOptions] = useState<Option[] | null >(null);
+    const [selectedOptions, setSelectedOptions] = useState<Option[] | undefined >(undefined);
     const [isOptionOpened, setIsOptionOpened] = useState<boolean>(false);
     const isOptionSelected = selectedOptions && selectedOptions?.length > 0;
-
-    const [optionsNames, setOptionNames] = useState<string | null>(null);
+    const [optionsNames, setOptionNames] = useState<string | undefined>(undefined);
 
     useEffect(()=> {
         if(selectedOptions){

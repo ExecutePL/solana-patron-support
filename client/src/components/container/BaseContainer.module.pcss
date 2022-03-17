@@ -3,6 +3,7 @@
     max-width:690px;
     color:#ffffff;
     position:relative;
+    
 }
 .title{
     font-size:48px;
@@ -10,11 +11,17 @@
     margin:0;
     opacity: 0.87;
 }
-.content{
-  min-height: 540px;
+.box{
   background-color: rgba(45,49,115,0.9);
   border-radius: 20px;
   padding:10px;
+  padding-bottom:30px;
+}
+.content{
+  overflow: auto;
+  max-height: 70vh;
+  
+  
 }
 .topSection{
   text-align: center; 
@@ -42,5 +49,11 @@
         justify-content: space-between ;
         align-items: center;
         margin-bottom: 20px;
-      }
+    }
+    .content{
+      min-height: 540px;
+    }
+    .title{
+      text-align: left;
+    }
 }
