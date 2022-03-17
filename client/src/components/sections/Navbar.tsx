@@ -1,11 +1,11 @@
 import React, { FC, ReactNode, useState } from 'react';
 import * as css from './Navbar.module.pcss';
-import logo from '../images/logo.svg';
 import { Link } from 'react-router-dom';
 import { Button } from '../buttons/Button';
 import { Popup } from '../popup/Popup';
 import { StartOwnProject } from './StartOwnProject';
 import cx from 'classnames/bind';
+import { PatronusLandLogo } from '../images/PatronusLandLogo/PatronusLandLogo';
 
 export interface NavbarProps {
     children: ReactNode;
@@ -19,7 +19,7 @@ export const Navbar: FC<NavbarProps> = ({ children }) => {
                 <div className={css.navbarContainer}>
                     <div className={css.logo}>
                         <Link to="/">
-                            <img src={logo} alt="Logo" />
+                            <PatronusLandLogo />
                         </Link>
                     </div>
                     <Button

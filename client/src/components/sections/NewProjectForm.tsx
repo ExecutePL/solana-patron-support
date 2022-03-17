@@ -6,6 +6,7 @@ import { Popup } from '../popup/Popup';
 import { useNavigate } from "react-router-dom";
 import { NextIcon } from '../images/NextIcon';
 import { Button } from '../buttons/Button';
+import { useWallet } from '@solana/wallet-adapter-react';
 
 interface NewProjectProps {
     projectType: string;
@@ -19,11 +20,18 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
     const [uploadedFileObjURL, setUploadedFileObjURL] = useState<string>('');
     const [isProjectCreated, setIsProjectCreated] = useState<boolean>(false);
     const navigate = useNavigate(); 
+    const publicKey = useWallet();
+    const isOrganizationProject = projectType === "organization";
+    const isInrevidiulProject = !isOrganizationProject;
 
     const [currenciesList, setCurrenciesList] = useState([]);
     useEffect(() => {
-        setFormValues({ ...formValues, type: projectType });
-    }, []);
+        if (publicKey.publicKey && isInrevidiulProject) {
+            setFormValues({ ...formValues, type: projectType, organization_adress: publicKey.publicKey.toString() });
+        }else{
+            setFormValues({ ...formValues, type: projectType });
+        } 
+    }, [publicKey, isInrevidiulProject]);
 
     useEffect(() => {
         if (!uploadedFile) return;
@@ -101,6 +109,16 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
                     required
                     onChange={(e) => setUploadedFile(e.target.files && e.target.files[0])}
                 />
+                {isOrganizationProject && <><label htmlFor="name" className={css.label}>
+                    Organization Wallet ID
+                </label>
+                <input
+                    id="name"
+                    type="text"
+                    className={css.input}
+                    required
+                    onChange={(e) => setFormValues({ ...formValues,  organization_adress: e.target.value })}
+                /></>}
                 <label htmlFor="name" className={css.label}>
                     Name of project
                 </label>
