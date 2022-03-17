@@ -10,7 +10,7 @@
     "build": "cd client && npm install && npm run build",
     "start": "node server/dist/index.js",
     "postinstall": "prisma generate --schema=./server/src/prisma/schema.prisma",
-    "migrate": "cd server/src/prisma && npx prisma migrate dev --name init",
+    "prisma-migrate": "cd server/src/prisma && npx prisma migrate dev --name init",
     "prisma-deploy": "cd server/src/prisma && npx prisma migrate deploy"
   },
   "repository": {
