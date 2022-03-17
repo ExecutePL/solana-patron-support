@@ -32,7 +32,7 @@ export const PendingRoute: FC = () => {
     const { connection } = useConnection();
 
     const orcaFarmToken = "orcarKHSqC5CDDsGbho8GKvwExejWHxTqGzXgcewB9L";
-    const faucetUSDT = "F9toYgPMvXX4vKCd8uZSXj4voFuL9a1XdCmk3je6wfB4";
+    const faucetUSDT = "Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr";
     const merchantAddress = "5pwgZ5cumBKM56nGAiAXf7UzmYMgjkQswbWbmEBWNvDG";
     const customerAddress = "78yZfwe88s4GaXhXfKEhMy3vK1wxyrm6Au1T3EsmEaTb";
 
