@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "CurrencyType" AS ENUM ('spl', 'collateral');
+
 -- CreateTable
 CREATE TABLE "Organization" (
     "id" SERIAL NOT NULL,
@@ -8,6 +11,8 @@ CREATE TABLE "Organization" (
     "total_raised" INTEGER NOT NULL DEFAULT 0,
     "target_raised" INTEGER NOT NULL,
     "adress" VARCHAR(45) NOT NULL,
+    "type" TEXT NOT NULL,
+    "verified" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -36,8 +41,7 @@ CREATE TABLE "Currency" (
     "min_decimals" INTEGER NOT NULL DEFAULT 0,
     "adress" VARCHAR(45) NOT NULL,
     "foto_src" TEXT,
-    "spl" BOOLEAN NOT NULL DEFAULT false,
-    "collateral" BOOLEAN NOT NULL DEFAULT false,
+    "type" "CurrencyType" NOT NULL DEFAULT E'spl',
 
     CONSTRAINT "Currency_pkey" PRIMARY KEY ("id")
 );
