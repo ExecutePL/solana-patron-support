@@ -7,7 +7,6 @@ import * as css from './Project.module.pcss';
 import verifiedIcon from '../images/verifiedIcon.svg';
 import { Popup } from '../popup/Popup';
 import { Donation, DonationType } from '../sections/Donation';
-import { useWallet } from '@solana/wallet-adapter-react';
 import { SocialMedia } from '../sections/SocialMedia';
 
 export const Project = () => {
@@ -16,7 +15,6 @@ export const Project = () => {
     const [isDonatePopupOpened, setIsDonatePopupOpened] = useState<boolean>(false);
     const [selectedDonationType, setSelectedDonationType] = useState<DonationType>('One-Time Donation');
     const [project, setProject] = useState<ProjectData>();
-    console.log(project);
 
     const getProjectsList = async (uuid: string) => {
         const res = await fetch('/api/get/one-organization', {
@@ -36,10 +34,6 @@ export const Project = () => {
         uuid && getProjectsList(uuid);
     }, [uuid]);
 
-    const publicKey = useWallet();
-    if (publicKey.publicKey) {
-        console.log(publicKey.publicKey?.toBase58());
-    }
     return (
         <>
             <div className={css.container}>
@@ -95,6 +89,8 @@ export const Project = () => {
                     <Donation
                         selectedDonationType={selectedDonationType}
                         onDonationTypeClick={(type) => setSelectedDonationType(type)}
+                        organizationAdress={project?.adress}
+                        organizationLabel={project?.name}
                     />
                 }
                 isPopupOpened={isDonatePopupOpened}

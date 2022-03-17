@@ -55,7 +55,7 @@ export type ProjectData = {
     total_raised?: number;
     target_raised?: number;
     socials:SocialMedia[]
-    
+    adress:string;    
 };
 
 type SocialMedia = {
