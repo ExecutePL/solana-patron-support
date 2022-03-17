@@ -8,20 +8,19 @@ interface NewProjectTypeProps {
 }
 
 export const NewProjectType = ({selectedProjectType, onTypeClick }:NewProjectTypeProps) =>  (
-    <>
-        <p className={css.subtitle}>Lorem ipsum dolor sit amet</p>
-        <p className={css.description}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.</p>
+    <div className={css.container}>
+        <p className={css.subtitle}>Choose Your type of fundraising project</p>
         <RadioGroup items={projectTypes} onItemClick={onTypeClick} selectedItem={selectedProjectType}/> 
-    </>
+    </div>
 )
 
 const projectTypes:Item[] = [
     {
         name:'indyvidual',
-        description:'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero'
+        description:'For creators or private collections managed by a single entity. best option for simple projects, creators or startups'
     },
     {
         name:'organization',
-        description:'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero'
+        description:' For dao organization with donor-managed assets with collaborative infrastructure'
     }
 ]
