@@ -196,15 +196,31 @@ export const getTransaction = async () => {
 export const createTransaction = async (
   amount: number,
   donator_adress: string,
-  organizationId: number,
-  currencyId: number
+  organizationWallet: string,
+  currencyName: string
 ) => {
+  const organizationId = await prisma.organization.findMany({
+    where: {
+      adress: organizationWallet,
+    },
+    select: {
+      id: true,
+    },
+  });
+  const currencyId = await prisma.currency.findMany({
+    where: {
+      name: currencyName,
+    },
+    select: {
+      id: true,
+    },
+  });
   return await prisma.transaction.create({
     data: {
       amount,
       donator_adress,
-      organizationId,
-      currencyId,
+      organizationId: organizationId[0].id,
+      currencyId: currencyId[0].id,
     },
   });
 };
