@@ -1,4 +1,4 @@
-import { CurrencyType, PrismaClient } from "@prisma/client";
+import { Currency, CurrencyType, PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
@@ -161,6 +161,23 @@ export const createCurrency = async (
       foto_src,
       type,
     },
+  });
+};
+
+export const createManyCurrencies = async (currencies: []) => {
+  const data = currencies.map(
+    ({ name, symbol, decimals, min_decimals, adress, foto_src, type }) => ({
+      name,
+      symbol,
+      decimals,
+      min_decimals,
+      adress,
+      foto_src,
+      type,
+    })
+  );
+  return await prisma.currency.createMany({
+    data,
   });
 };
 

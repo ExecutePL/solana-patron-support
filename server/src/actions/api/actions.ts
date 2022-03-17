@@ -10,6 +10,7 @@ import {
   createCurrency,
   getTransaction,
   createTransaction,
+  createManyCurrencies,
 } from "../../prisma/index";
 
 export class Actions {
@@ -155,6 +156,25 @@ export class Actions {
       req.body;
 
     createCurrency(name, symbol, decimals, min_decimals, adress, foto_src, type)
+      .then((data) => {
+        res.status(200).json();
+      })
+      .catch((e) => {
+        throw e;
+      })
+      .finally(async () => {
+        await prisma.$disconnect();
+      });
+  }
+
+  static async createManyCurrencies(
+    req: express.Request,
+    res: express.Response
+  ) {
+    const prisma = new PrismaClient();
+    const currencies = req.body;
+
+    createManyCurrencies(currencies)
       .then((data) => {
         res.status(200).json();
       })

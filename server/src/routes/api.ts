@@ -12,6 +12,7 @@ const {
   createCurrency,
   getTransaction,
   createTransaction,
+  createManyCurrencies,
 } = Actions;
 
 router.get("/get/organization", getOrganization);
@@ -23,6 +24,7 @@ router.post("/create/social-medias", createSocial_medias);
 
 router.get("/get/currency", getCurrency);
 router.post("/create/currency", createCurrency);
+router.post("/create/many-currencies", createManyCurrencies);
 
 router.get("/get/transaction", getTransaction);
 router.post("/create/transaction", createTransaction);
