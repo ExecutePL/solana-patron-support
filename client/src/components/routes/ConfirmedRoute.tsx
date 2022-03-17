@@ -13,11 +13,12 @@ import * as css from './ConfirmedRoute.module.pcss';
 
 export const ConfirmedRoute: FC = () => {
     const publicKey = useWallet();
-    const [isSucces, setSuccess] = useState<boolean>(false);
+    const [isTransactionSuccess, setTransactionSuccess] = useState<boolean>(false);
     const [transaction, setTransaction] = useState<any>();
     const { reset, status, amount, reference} = usePayment();
     const [params] = useSearchParams();
     const navigate = useNavigate(); 
+    
 
     const { recipient, currency } = useMemo(() => {
         let recipient: any | undefined, 
@@ -56,7 +57,7 @@ export const ConfirmedRoute: FC = () => {
             },
         });
         if (res.ok){
-            setSuccess(true);
+            setTransactionSuccess(true);
         } else {
             console.log('error')
         }
@@ -70,7 +71,7 @@ export const ConfirmedRoute: FC = () => {
 
     const handleClosePopip = () =>{
         navigate('/');
-        setSuccess(false)
+        setTransactionSuccess(false)
         window.location.reload();
     }
 
@@ -88,12 +89,14 @@ export const ConfirmedRoute: FC = () => {
             </div>
             <Popup content={
                 <div className={css.popupContent}>
-                    <p className={css.popupText}>Transactaion has been accepted.</p>
-                    <p className={css.popupText}>Thanks for the donation!</p>
+                    <p >Transactaion has been accepted.</p>
+                    <p >Thanks for the donation!</p>
                     <Button onClick={()=>handleClosePopip()} buttonClassName={css.popupButton}>Go to all projects <NextIcon /></Button>
                 </div>
             }
-            isPopupOpened={isSucces}/>
+            isPopupOpened={isTransactionSuccess}
+            onClose={()=>handleClosePopip()}
+            />
         </div>
     );
 };
