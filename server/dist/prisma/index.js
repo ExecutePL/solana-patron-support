@@ -9,18 +9,58 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createTransaction = exports.getTransaction = exports.createCurrency = exports.getCurrency = exports.createSocial_medias = exports.getSocial_medias = exports.createOrganization = exports.getOrganization = void 0;
+exports.createTransaction = exports.getTransaction = exports.createCurrency = exports.getCurrency = exports.createSocial_medias = exports.getSocial_medias = exports.createOrganization = exports.getSingleOrganization = exports.getOrganization = void 0;
 const client_1 = require("@prisma/client");
 const uuid_1 = require("uuid");
 const prisma = new client_1.PrismaClient();
 const getOrganization = () => __awaiter(void 0, void 0, void 0, function* () {
     return yield prisma.organization.findMany({
         select: {
+            uuid: true,
             name: true,
+            description: true,
+            foto_src: true,
+            total_raised: true,
+            target_raised: true,
+            adress: true,
+            type: true,
+            verified: true,
+            createdAt: true,
+            updatedAt: true,
         },
     });
 });
 exports.getOrganization = getOrganization;
+const getSingleOrganization = (uuid) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield prisma.organization.findUnique({
+        where: {
+            uuid,
+        },
+        select: {
+            uuid: true,
+            name: true,
+            description: true,
+            foto_src: true,
+            total_raised: true,
+            target_raised: true,
+            adress: true,
+            type: true,
+            verified: true,
+            createdAt: true,
+            updatedAt: true,
+            socials: {
+                select: {
+                    twitter: true,
+                    facebook: true,
+                    instagram: true,
+                    discord: true,
+                    telegram: true,
+                },
+            },
+        },
+    });
+});
+exports.getSingleOrganization = getSingleOrganization;
 const createOrganization = (organization_name, description = '', organization_foto_src = '', target_raised, organization_adress = '', type, discord = '', facebook = '', instagram = '', telegram = '', twitter = '', currencyId) => __awaiter(void 0, void 0, void 0, function* () {
     const data = currencyId.map((a) => ({
         currencyId: a,
@@ -57,6 +97,10 @@ const getSocial_medias = () => __awaiter(void 0, void 0, void 0, function* () {
         select: {
             organizationId: true,
             twitter: true,
+            facebook: true,
+            instagram: true,
+            discord: true,
+            telegram: true,
         },
     });
 });
@@ -109,6 +153,7 @@ const getTransaction = () => __awaiter(void 0, void 0, void 0, function* () {
             donator_adress: true,
             organizationId: true,
             currencyId: true,
+            createdAt: true,
         },
     });
 });

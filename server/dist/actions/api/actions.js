@@ -29,6 +29,22 @@ class Actions {
             }));
         });
     }
+    static getSingleOrganization(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const prisma = new client_1.PrismaClient();
+            const { uuid } = req.body;
+            (0, index_1.getSingleOrganization)(uuid)
+                .then((data) => {
+                res.status(200).json(data);
+            })
+                .catch((e) => {
+                throw e;
+            })
+                .finally(() => __awaiter(this, void 0, void 0, function* () {
+                yield prisma.$disconnect();
+            }));
+        });
+    }
     static createOrganization(req, res) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {

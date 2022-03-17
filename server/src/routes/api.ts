@@ -20,6 +20,7 @@ const upload = multer({ storage: storage });
 
 const {
   getOrganization,
+  getSingleOrganization,
   createOrganization,
   getSocial_medias,
   createSocial_medias,
@@ -31,6 +32,7 @@ const {
 
 router.get('/get/organization', getOrganization);
 router.post('/create/organization', upload.single('file'), createOrganization);
+router.get('/get/one-organization', getSingleOrganization);
 
 router.get('/get/social-medias', getSocial_medias);
 router.post('/create/social-medias', createSocial_medias);

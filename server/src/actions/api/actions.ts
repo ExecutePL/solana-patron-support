@@ -2,11 +2,12 @@ import { PrismaClient } from '@prisma/client';
 import express from 'express';
 import {
   createCurrency,
+  getOrganization,
+  getSingleOrganization,
   createOrganization,
   createSocial_medias,
   createTransaction,
   getCurrency,
-  getOrganization,
   getSocial_medias,
   getTransaction,
 } from '../../prisma/index';
@@ -17,6 +18,25 @@ export class Actions {
     const {} = req.body;
 
     getOrganization()
+      .then((data) => {
+        res.status(200).json(data);
+      })
+      .catch((e) => {
+        throw e;
+      })
+      .finally(async () => {
+        await prisma.$disconnect();
+      });
+  }
+
+  static async getSingleOrganization(
+    req: express.Request,
+    res: express.Response
+  ) {
+    const prisma = new PrismaClient();
+    const { uuid } = req.body;
+
+    getSingleOrganization(uuid)
       .then((data) => {
         res.status(200).json(data);
       })
