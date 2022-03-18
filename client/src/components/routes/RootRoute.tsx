@@ -23,7 +23,7 @@ export const RootRoute: FC = () => {
     );
 
     const [params] = useSearchParams();
-    const { recipient, label, currency, decimals, minDecimals } = useMemo(() => {
+    const { recipient, label, currency, decimals } = useMemo(() => {
         let recipient: PublicKey | undefined, 
         label: string | undefined, 
         currency: string | undefined,
@@ -36,7 +36,7 @@ export const RootRoute: FC = () => {
         const decimalsParam = params.get('decimals');
         const minDecimalsParam = params.get('minDecimals');
 
-        if (recipientParam && labelParam) {
+        if (recipientParam && labelParam ) {
             try {
                 recipient = new PublicKey(recipientParam);
                 label = labelParam;
@@ -49,7 +49,7 @@ export const RootRoute: FC = () => {
             }
         }
 
-        return { recipient, label, currency, decimals, minDecimals };
+        return { recipient, label, currency, decimals };
     }, [params]);
 
     return (
@@ -66,7 +66,7 @@ export const RootRoute: FC = () => {
                                     symbol={currency ? currency : 'USDC'}
                                     icon={<SOLIcon />}
                                     decimals={decimals}
-                                    minDecimals={minDecimals}
+                                    minDecimals={2}
                                     connectWallet={connectWallet}
                                 >
                                     <TransactionsProvider>
