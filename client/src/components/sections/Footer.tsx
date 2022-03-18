@@ -2,6 +2,9 @@ import React, { FC } from 'react';
 import * as css from './Footer.module.pcss';
 import discord from '../images/discord.svg';
 export const Footer: FC = () => {
+    const click = ()=> {
+        window.open('https://discord.gg/Ce5RESaG','_blank')
+    }
     return (
         <>
             <section className={css.beVerified}>
@@ -13,7 +16,7 @@ export const Footer: FC = () => {
                         </div>
                         <div className={css.verifiedRight}>
                             <img src={discord} height="50" width="50" />
-                            <button className={css.whiteButton}>Open Discord</button>
+                            <button className={css.whiteButton} onClick={click}>Open Discord</button>
                         </div>
                     </div>
                 </div>
