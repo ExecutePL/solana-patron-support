@@ -22,8 +22,8 @@ const App = () => __awaiter(void 0, void 0, void 0, function* () {
     const restApi = (0, express_1.default)();
     restApi.use(body_parser_1.default.json());
     restApi.use((0, cors_1.default)());
-    restApi.use(express_1.default.static(path_1.default.resolve(__dirname, '../../client/dist')));
     restApi.use('/uploads', express_1.default.static(path_1.default.resolve(__dirname, '../../public/uploads')));
+    restApi.use(express_1.default.static(path_1.default.resolve(__dirname, '../../client/dist')));
     restApi.use('/api', api_1.router);
     restApi.get('*', (req, res) => {
         res.sendFile(path_1.default.resolve(__dirname, '../../client/dist', 'index.html'));
