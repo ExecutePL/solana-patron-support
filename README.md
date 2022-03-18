@@ -2,7 +2,7 @@
 
 This project was bootstrapped with React and Solana.
 
-You can [check out the demo](https://patronus.land) (using devnet), use the code as a reference, or run it yourself to start accepting decentralized payments in-person.
+You can [check out the demo](https://www.patronus.land) (using devnet), use the code as a reference, or run it yourself to start accepting decentralized payments in-person.
 
 ## Prerequisites
 

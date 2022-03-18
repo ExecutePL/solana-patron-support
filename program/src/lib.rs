@@ -41,6 +41,18 @@ pub fn process_instruction(
 
     match Instruction::try_from_slice(input)? {
         Instruction::Transfer { amount } => {
+
+
+
+
+
+            //todo mint token for user to track collateral exchange
+            //implement method to call farm rewards publicly avaible and transfer tokens to associated organization
+
+
+
+
+
             msg!("transfer: {}", amount);
             let ix = spl_token::instruction::transfer(
                 token_info.key,
