@@ -43,22 +43,16 @@ export const Donation = ({
             case 'One-Time Donation':
                 return currenciesList;
             case 'Colatteral Donation':
-                const list = currenciesList.filter(({ type }) => type === 'colatteral');
-                return list;
+                { 
+                    const list = currenciesList.filter(({ type }) => type === 'colatteral');
+                    return list
+                }
         }
     };
-    const isCollateral = (selectedType: DonationType) => {
-        switch (selectedType.toString()) {
-            case 'One-Time Donation':
-                return currenciesList;
-            case 'Colatteral Donation':
-                const list = currenciesList.filter(({ type }) => type === 'colatteral');
-                return list;
-        }
-    };
+
     useEffect(() => {
-        const test = currencies(selectedDonationType.toString());
-        currencies(selectedDonationType.toString());
+        const currenciesList = currencies(selectedDonationType.toString());
+        currenciesList && setSelectedCurrenciesList(currenciesList)
     }, [selectedDonationType, currenciesList]);
 
     useEffect(() => {
@@ -86,7 +80,7 @@ export const Donation = ({
             />
             <div className={css.currencyContainer}>
                 <Select
-                    options={isCollateral(selectedDonationType)}
+                    options={selectedCurrenciesList}
                     selectName="currency"
                     defaultOption="- Select currenies -"
                     title="Currencies: "
