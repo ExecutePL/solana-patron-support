@@ -41,17 +41,11 @@ pub fn process_instruction(
 
     match Instruction::try_from_slice(input)? {
         Instruction::Transfer { amount } => {
-
-
-
-
-
             //todo mint token for user to track collateral exchange
-            //implement method to call farm rewards publicly avaible and transfer tokens to associated organization
-
-
-
-
+            //Steps left:
+            //1: Transfer Farm/LP tokens to account(s) associated with this contract in exchange to Collateral-Founding token
+            //2: Add windrow method to exchange  Collateral-Founding token for deposited farm token
+            //3: Add method to call external program to claim all rewards and distribute them to target organizations
 
             msg!("transfer: {}", amount);
             let ix = spl_token::instruction::transfer(
