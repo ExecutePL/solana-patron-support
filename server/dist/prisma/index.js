@@ -57,11 +57,26 @@ const getSingleOrganization = (uuid) => __awaiter(void 0, void 0, void 0, functi
                     telegram: true,
                 },
             },
+            currencies: {
+                select: {
+                    currency: {
+                        select: {
+                            name: true,
+                            symbol: true,
+                            decimals: true,
+                            min_decimals: true,
+                            adress: true,
+                            foto_src: true,
+                            type: true,
+                        },
+                    },
+                },
+            },
         },
     });
 });
 exports.getSingleOrganization = getSingleOrganization;
-const createOrganization = (organization_name, description = '', organization_foto_src = '', target_raised, organization_adress = '', type, discord = '', facebook = '', instagram = '', telegram = '', twitter = '', currencyId) => __awaiter(void 0, void 0, void 0, function* () {
+const createOrganization = (organization_name, description = "", organization_foto_src = "", target_raised, organization_adress = "", type, discord = "", facebook = "", instagram = "", telegram = "", twitter = "", currencyId) => __awaiter(void 0, void 0, void 0, function* () {
     const data = currencyId.map((a) => ({
         currencyId: a,
     }));
@@ -105,7 +120,7 @@ const getSocial_medias = () => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 exports.getSocial_medias = getSocial_medias;
-const createSocial_medias = (organizationId, twitter = '', facebook = '', instagram = '', discord = '', telegram = '') => __awaiter(void 0, void 0, void 0, function* () {
+const createSocial_medias = (organizationId, twitter = "", facebook = "", instagram = "", discord = "", telegram = "") => __awaiter(void 0, void 0, void 0, function* () {
     return yield prisma.social_medias.create({
         data: {
             organizationId,
@@ -132,7 +147,7 @@ const getCurrency = () => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 exports.getCurrency = getCurrency;
-const createCurrency = (name, symbol, decimals, min_decimals, adress, foto_src = '', type) => __awaiter(void 0, void 0, void 0, function* () {
+const createCurrency = (name, symbol, decimals, min_decimals, adress, foto_src = "", type) => __awaiter(void 0, void 0, void 0, function* () {
     return yield prisma.currency.create({
         data: {
             name,
@@ -173,6 +188,16 @@ const createTransaction = (amount, donator_adress, organizationWallet, currencyN
         },
         select: {
             id: true,
+        },
+    });
+    yield prisma.organization.update({
+        where: {
+            id: organizationId[0].id,
+        },
+        data: {
+            total_raised: {
+                increment: amount,
+            },
         },
     });
     return yield prisma.transaction.create({
