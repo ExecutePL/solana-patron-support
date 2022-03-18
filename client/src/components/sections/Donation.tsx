@@ -33,7 +33,6 @@ export const Donation = ({
     const [selectedCurrenciesList, setSelectedCurrenciesList] = useState<Option[]>([]);
     const [selectedCurreny, setSelectedCurrency] = useState<any>();
     const [radioStatus, setradioStatus] = useState(false);
-    console.log(selectedCurreny);
     const navigate = useNavigate();
 
     const handleSelectedCurrencies = (selectedCurrency: Option) => {
@@ -59,7 +58,6 @@ export const Donation = ({
     };
     useEffect(() => {
         const test = currencies(selectedDonationType.toString());
-        console.log({ test });
         currencies(selectedDonationType.toString());
     }, [selectedDonationType, currenciesList]);
 
@@ -74,10 +72,8 @@ export const Donation = ({
     const handleDonate = () => {
         const link = `/new?recipient=${organizationAdress}&label=${organizationLabel}
         &curr=${selectedCurreny[0].name}&decimals=${selectedCurreny[0].decimals}&minDecimals=${selectedCurreny[0].minDecimals}`;
-        console.log(link);
         navigate(link);
     };
-    console.log(currenciesList);
 
     return (
         <div className={css.container}>

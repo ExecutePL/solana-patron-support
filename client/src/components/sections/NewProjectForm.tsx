@@ -3,7 +3,7 @@ import * as css from './NewProjectForm.module.pcss';
 import addLogoIcon from '../images/addLogo.svg';
 import { Select, Option } from '../select/Select';
 import { Popup } from '../popup/Popup';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { NextIcon } from '../images/NextIcon';
 import { Button } from '../buttons/Button';
 import { useWallet } from '@solana/wallet-adapter-react';
@@ -20,25 +20,28 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
     const [uploadedFileObjURL, setUploadedFileObjURL] = useState<string>('');
     const [isProjectCreated, setIsProjectCreated] = useState<boolean>(false);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
     const publicKey = useWallet();
-    const isOrganizationProject = projectType === "organization";
+    const isOrganizationProject = projectType === 'organization';
     const isInrevidiulProject = !isOrganizationProject;
     const { setVisible } = useWalletModal();
 
     const [currenciesList, setCurrenciesList] = useState([]);
     useEffect(() => {
-        if(isInrevidiulProject){
+        if (isInrevidiulProject) {
             if (publicKey.publicKey) {
-                setFormValues({ ...formValues, type: projectType, organization_adress: publicKey.publicKey.toString() });
-            }else {
+                setFormValues({
+                    ...formValues,
+                    type: projectType,
+                    organization_adress: publicKey.publicKey.toString(),
+                });
+            } else {
                 setFormValues({ ...formValues, type: projectType });
-                setVisible(true)
-            } 
+                setVisible(true);
+            }
         } else {
             setFormValues({ ...formValues, type: projectType });
         }
-        
     }, [publicKey, isInrevidiulProject]);
 
     useEffect(() => {
@@ -55,34 +58,34 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
     const handleStatusPopup = () => {
         navigate('/');
         handleCloseClick(true);
-        setIsProjectCreated(false)
+        setIsProjectCreated(false);
         window.location.reload();
-    }
+    };
 
     const createProject = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(!formValues?.organization_adress){
+        if (!formValues?.organization_adress) {
             setVisible(true);
         } else {
             const formData = new FormData();
 
-        if (uploadedFile) {
-            formData.append('file', uploadedFile, uploadedFile.name);
-        }
-        if (formValues) {
-            formData.set('data', JSON.stringify(formValues));
-        }
+            if (uploadedFile) {
+                formData.append('file', uploadedFile, uploadedFile.name);
+            }
+            if (formValues) {
+                formData.set('data', JSON.stringify(formValues));
+            }
 
-        const res = await fetch('/api/create/organization', {
-            method: 'POST',
-            body: formData,
-        });
-        if (res.ok){
-            setIsProjectCreated(true)
-        } else {
-            setIsProjectCreated(false)
+            const res = await fetch('/api/create/organization', {
+                method: 'POST',
+                body: formData,
+            });
+            if (res.ok) {
+                setIsProjectCreated(true);
+            } else {
+                setIsProjectCreated(false);
+            }
         }
-        }  
     };
     const getCurrencies = async () => {
         const res = await fetch('/api/get/currency', {
@@ -120,16 +123,20 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
                     required
                     onChange={(e) => setUploadedFile(e.target.files && e.target.files[0])}
                 />
-                {isOrganizationProject && <><label htmlFor="name" className={css.label}>
-                    Organization Wallet ID
-                </label>
-                <input
-                    id="name"
-                    type="text"
-                    className={css.input}
-                    required
-                    onChange={(e) => setFormValues({ ...formValues,  organization_adress: e.target.value })}
-                /></>}
+                {isOrganizationProject && (
+                    <>
+                        <label htmlFor="name" className={css.label}>
+                            Organization Wallet ID
+                        </label>
+                        <input
+                            id="name"
+                            type="text"
+                            className={css.input}
+                            required
+                            onChange={(e) => setFormValues({ ...formValues, organization_adress: e.target.value })}
+                        />
+                    </>
+                )}
                 <label htmlFor="name" className={css.label}>
                     Name of project
                 </label>
@@ -220,20 +227,21 @@ export const NewProjectForm = ({ projectType, handleCloseClick }: NewProjectProp
                     handleSelectedValuesChange={(selectedOptions) => handleSelectedCurrencies(selectedOptions)}
                     isMultiple
                 />
-                <Button 
-                    type='submit'
-                    buttonClassName={css.createButton}    
-                >
+                <Button type="submit" buttonClassName={css.createButton}>
                     Create Project
                 </Button>
             </form>
-            <Popup 
+            <Popup
                 isPopupOpened={isProjectCreated}
-                onClose={()=>{handleStatusPopup()}}
-                content= {
+                onClose={() => {
+                    handleStatusPopup();
+                }}
+                content={
                     <div className={css.popupContent}>
-                           <p className={css.popupTitle}>Your project has been successfully created!</p>
-                            <Button onClick={()=>handleStatusPopup()}>Go to all projects <NextIcon /></Button> 
+                        <p className={css.popupTitle}>Your project has been successfully created!</p>
+                        <Button onClick={() => handleStatusPopup()}>
+                            Go to all projects <NextIcon />
+                        </Button>
                     </div>
                 }
             />
