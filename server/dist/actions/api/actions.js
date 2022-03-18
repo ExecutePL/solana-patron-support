@@ -46,11 +46,36 @@ class Actions {
         });
     }
     static createOrganization(req, res) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const prisma = new client_1.PrismaClient();
             const { organization_name, description, target_raised, organization_adress, type, discord, facebook, instagram, telegram, twitter, currencyId, } = JSON.parse(req.body.data);
-            const organization_foto_src = `${req.headers.origin}/uploads/${(_a = req.file) === null || _a === void 0 ? void 0 : _a.filename}`;
+            // const s3 = new AWS.S3();
+            // const fileName = req.file?.filename;
+            // const fileType = req.query['file-type'];
+            // const S3_BUCKET = 'bucketeer-e7231680-281b-42d8-9659-5ec4db91989f';
+            // const s3Params = {
+            //   Bucket: S3_BUCKET,
+            //   Key: fileName,
+            //   Expires: 60,
+            //   ContentType: fileType,
+            //   ACL: 'public-read',
+            // };
+            // let organization_foto_src;
+            // s3.getSignedUrl('putObject', s3Params, (err, data) => {
+            //   if (err) {
+            //     console.log(err);
+            //     return res.end();
+            //   }
+            //   const returnData = {
+            //     signedRequest: data,
+            //     url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`,
+            //   };
+            //   organization_foto_src = `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`;
+            // });
+            // console.log(organization_foto_src);
+            console.log(req.file.location);
+            // const organization_foto_src = `${req.headers.origin}/uploads/${req.file?.filename}`;
+            const organization_foto_src = req.file.location;
             (0, index_1.createOrganization)(organization_name, description, organization_foto_src, target_raised, organization_adress, type, discord, facebook, instagram, telegram, twitter, currencyId)
                 .then((data) => {
                 res.status(200).json();

@@ -64,7 +64,35 @@ export class Actions {
       currencyId,
     } = JSON.parse(req.body.data);
 
-    const organization_foto_src = `${req.headers.origin}/uploads/${req.file?.filename}`;
+    // const s3 = new AWS.S3();
+    // const fileName = req.file?.filename;
+    // const fileType = req.query['file-type'];
+    // const S3_BUCKET = 'bucketeer-e7231680-281b-42d8-9659-5ec4db91989f';
+    // const s3Params = {
+    //   Bucket: S3_BUCKET,
+    //   Key: fileName,
+    //   Expires: 60,
+    //   ContentType: fileType,
+    //   ACL: 'public-read',
+    // };
+
+    // let organization_foto_src;
+    // s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    //   if (err) {
+    //     console.log(err);
+    //     return res.end();
+    //   }
+    //   const returnData = {
+    //     signedRequest: data,
+    //     url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`,
+    //   };
+    //   organization_foto_src = `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`;
+    // });
+    // console.log(organization_foto_src);
+    console.log((req.file as any).location);
+
+    // const organization_foto_src = `${req.headers.origin}/uploads/${req.file?.filename}`;
+    const organization_foto_src = (req.file as any).location;
 
     createOrganization(
       organization_name,

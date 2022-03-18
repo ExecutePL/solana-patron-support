@@ -18,12 +18,14 @@ const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const api_1 = require("./routes/api");
+const aws_sdk_1 = __importDefault(require("aws-sdk"));
+aws_sdk_1.default.config.region = 'eu-west-1';
 const App = () => __awaiter(void 0, void 0, void 0, function* () {
     const restApi = (0, express_1.default)();
     restApi.use(body_parser_1.default.json());
     restApi.use((0, cors_1.default)());
-    restApi.use('/uploads', express_1.default.static(path_1.default.resolve(__dirname, '../../public/uploads')));
     restApi.use(express_1.default.static(path_1.default.resolve(__dirname, '../../client/dist')));
+    restApi.use('/uploads', express_1.default.static(path_1.default.resolve(__dirname, '../../public/uploads')));
     restApi.use('/api', api_1.router);
     restApi.get('*', (req, res) => {
         res.sendFile(path_1.default.resolve(__dirname, '../../client/dist', 'index.html'));
