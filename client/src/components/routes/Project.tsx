@@ -33,7 +33,9 @@ export const Project = () => {
     useEffect(() => {
         uuid && getProjectsList(uuid);
     }, [uuid]);
-
+    const currenciesOrganization = project?.currencies.map((item) => {
+        return { ...item.currency };
+    });
     return (
         <>
             <div className={css.container}>
@@ -51,11 +53,7 @@ export const Project = () => {
                                     <span>verified</span>
                                 </div>
                             ) : null}
-                            <img
-                                src={project?.foto_src}
-                                alt={project?.name}
-                                className={css.image}
-                            />
+                            <img src={project?.foto_src} alt={project?.name} className={css.image} />
                             <p className={css.decription}>{project?.description}</p>
                             {project?.socials && (
                                 <SocialMedia
@@ -91,6 +89,7 @@ export const Project = () => {
                         onDonationTypeClick={(type) => setSelectedDonationType(type)}
                         organizationAdress={project?.adress}
                         organizationLabel={project?.name}
+                        selectedOrganizationCurrencies={currenciesOrganization}
                     />
                 }
                 isPopupOpened={isDonatePopupOpened}

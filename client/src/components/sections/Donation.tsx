@@ -3,29 +3,28 @@ import { Item, RadioGroup } from '../radioGroup/RadioGroup';
 import * as css from './Donation.module.pcss';
 import { Option, Select } from '../select/Select';
 import { Button } from '../buttons/Button';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export type DonationType = any;
 
 interface DonationProps {
-    organizationAdress?:string;
-    organizationLabel?:string;
+    organizationAdress?: string;
+    organizationLabel?: string;
     selectedDonationType: DonationType;
     onDonationTypeClick: (type: string) => void;
+    selectedOrganizationCurrencies: Array<object>;
 }
 
-export const Donation = ({ selectedDonationType, onDonationTypeClick, organizationAdress, organizationLabel  }: DonationProps) => {
+export const Donation = ({
+    selectedDonationType,
+    onDonationTypeClick,
+    organizationAdress,
+    organizationLabel,
+    selectedOrganizationCurrencies,
+}: DonationProps) => {
     const [currenciesList, setCurrenciesList] = useState([]);
-    const getCurrencies = async () => {
-        const res = await fetch('/api/get/currency', {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        });
-        const data = await res.json();
-        data.forEach((o: { id: number }, i: number) => (o.id = i + 1));
-        setCurrenciesList(data);
+    const getCurrencies = () => {
+        setCurrenciesList(selectedOrganizationCurrencies);
     };
     useEffect(() => {
         getCurrencies();
@@ -33,37 +32,52 @@ export const Donation = ({ selectedDonationType, onDonationTypeClick, organizati
 
     const [selectedCurrenciesList, setSelectedCurrenciesList] = useState<Option[]>([]);
     const [selectedCurreny, setSelectedCurrency] = useState<any>();
-    console.log(selectedCurreny)
+    const [radioStatus, setradioStatus] = useState(false);
+    console.log(selectedCurreny);
     const navigate = useNavigate();
 
     const handleSelectedCurrencies = (selectedCurrency: Option) => {
         setSelectedCurrency(selectedCurrency);
     };
-
-    const selectCurrencies = (selectedDonationType: string) => {
+    const currencies = (selectedDonationType: string) => {
         switch (selectedDonationType.toString()) {
             case 'One-Time Donation':
                 return currenciesList;
             case 'Colatteral Donation':
-                {
-                    const list = currenciesList.filter(({ type }) => type === 'colatteral');
-                    return list;
-                }
+                const list = currenciesList.filter(({ type }) => type === 'colatteral');
+                return list;
         }
     };
-    
+    const isCollateral = (selectedType: DonationType) => {
+        switch (selectedType.toString()) {
+            case 'One-Time Donation':
+                return currenciesList;
+            case 'Colatteral Donation':
+                const list = currenciesList.filter(({ type }) => type === 'colatteral');
+                return list;
+        }
+    };
     useEffect(() => {
-        const currencyList = selectCurrencies(selectedDonationType);
-        setSelectedCurrenciesList(currencyList);
+        const test = currencies(selectedDonationType.toString());
+        console.log({ test });
+        currencies(selectedDonationType.toString());
     }, [selectedDonationType, currenciesList]);
 
-    const handleDonate = () =>{
+    useEffect(() => {
+        setradioStatus(false);
+    });
+
+    useEffect(() => {
+        setradioStatus(true);
+    }, [onDonationTypeClick]);
+
+    const handleDonate = () => {
         const link = `/new?recipient=${organizationAdress}&label=${organizationLabel}
-        &curr=${selectedCurreny[0].name}&decimals=${selectedCurreny[0].decimals}&minDecimals=${selectedCurreny[0].minDecimals}`
-        console.log(link)
+        &curr=${selectedCurreny[0].name}&decimals=${selectedCurreny[0].decimals}&minDecimals=${selectedCurreny[0].minDecimals}`;
+        console.log(link);
         navigate(link);
-    }
-    console.log(currenciesList)
+    };
+    console.log(currenciesList);
 
     return (
         <div className={css.container}>
@@ -76,14 +90,17 @@ export const Donation = ({ selectedDonationType, onDonationTypeClick, organizati
             />
             <div className={css.currencyContainer}>
                 <Select
-                    options={selectedCurrenciesList}
+                    options={isCollateral(selectedDonationType)}
                     selectName="currency"
                     defaultOption="- Select currenies -"
                     title="Currencies: "
                     handleSelectedValuesChange={(selectedOptions) => handleSelectedCurrencies(selectedOptions)}
+                    isRadioChange={radioStatus}
                 />
             </div>
-            <Button buttonClassName={css.donateButton} onClick={()=>handleDonate()}>Donate</Button>
+            <Button buttonClassName={css.donateButton} onClick={() => handleDonate()}>
+                Donate
+            </Button>
         </div>
     );
 };
