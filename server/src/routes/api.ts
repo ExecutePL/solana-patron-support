@@ -1,7 +1,6 @@
-import { Actions } from '../actions/api/actions';
 import express from 'express';
 import multer from 'multer';
-import fs from 'fs';
+import { Actions } from '../actions/api/actions';
 
 export const router = express.Router();
 
