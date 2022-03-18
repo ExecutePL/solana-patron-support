@@ -10,6 +10,7 @@ export type DonationType = any;
 interface DonationProps {
     organizationAdress?: string;
     organizationLabel?: string;
+    organizationId?:number;
     selectedDonationType: DonationType;
     onDonationTypeClick: (type: string) => void;
     selectedOrganizationCurrencies: Array<object>;
@@ -21,6 +22,7 @@ export const Donation = ({
     organizationAdress,
     organizationLabel,
     selectedOrganizationCurrencies,
+    organizationId
 }: DonationProps) => {
     const [currenciesList, setCurrenciesList] = useState([]);
     const getCurrencies = () => {
@@ -65,7 +67,7 @@ export const Donation = ({
 
     const handleDonate = () => {
         const link = `/new?recipient=${organizationAdress}&label=${organizationLabel}
-        &curr=${selectedCurreny[0].name}&decimals=${selectedCurreny[0].decimals}&minDecimals=${selectedCurreny[0].minDecimals}`;
+        &curr=${selectedCurreny[0].name}&decimals=${selectedCurreny[0].decimals}&id=${organizationId}`;
         navigate(link);
     };
 

@@ -15,37 +15,39 @@ export const ConfirmedRoute: FC = () => {
     const publicKey = useWallet();
     const [isTransactionSuccess, setTransactionSuccess] = useState<boolean>(false);
     const [transaction, setTransaction] = useState<any>();
-    const { reset, status, amount, reference} = usePayment();
+    const { reset, status, amount} = usePayment();
     const [params] = useSearchParams();
     const navigate = useNavigate(); 
-    
 
-    const { recipient, currency } = useMemo(() => {
-        let recipient: any | undefined, 
-        currency: string | undefined;
-        const recipientParam = params.get('recipient');
+
+    const {  currency , id } = useMemo(() => {
+        let currency: string | undefined,
+        id: number | undefined;
         const currencyParam = params.get('curr');
-        if (recipientParam && currencyParam) {
+        const idParam = params.get('id');
+        if (idParam && currencyParam ) {
             try {
-                recipient = recipientParam;
                 currency = currencyParam ? currencyParam :  'USDC';
+                id = Number(idParam) ;
 
             } catch (error) {
                 console.error(error);
             }
         }
-        return { recipient, currency };
+        return {  currency, id };
     }, [params]);
+
+    console.log(transaction)
 
     useEffect(()=>{
         const transaction = {
             amount: amount && amount.c ? amount.c[0] : 0,
             donator_adress: publicKey.publicKey?.toBase58(),
             currencyName:currency,
-            organizationWallet:recipient
+            organizationId: id
         }
         setTransaction(transaction);
-    }, [amount, reference, currency, recipient, publicKey])
+    }, [amount, currency, publicKey, params, id])
     
     const addTransaction = async() => {
         console.log(transaction)
