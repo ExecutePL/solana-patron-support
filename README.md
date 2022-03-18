@@ -1,8 +1,8 @@
-# Point of Sale
+# Patronus.land
 
-This is an example of how you can use the `@solana/pay` JavaScript library to create a simple point of sale system.
+This project was bootstrapped with React and Solana.
 
-You can [check out the demo](https://solana-labs.github.io/solana-pay/app?recipient=GvHeR432g7MjN9uKyX3Dzg66TqwrEWgANLnnFZXMeyyj&label=Solana+Pay) (using devnet), use the code as a reference, or run it yourself to start accepting decentralized payments in-person.
+You can [check out the demo](https://patronus.land) (using devnet), use the code as a reference, or run it yourself to start accepting decentralized payments in-person.
 
 ## Prerequisites
 
@@ -44,66 +44,27 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Install dependencies
 ```shell
-yarn install
+npm i
+```
+
+### Enter client catalog
+```shell
+cd client
+```
+
+### Install client dependencies
+```shell
+npm i
 ```
 
 ### Start the local dev server
 ```shell
-yarn start
+npm run dev
 ```
 
-### Open the point of sale app
+### Open the app
 ```shell
-open "http://localhost:1234?recipient=Your+Merchant+Address&label=Your+Store+Name"
-```
-
-## Accepting USDC on Mainnet
-Import the Mainnet endpoint, along with USDC's mint address and icon in the `RootRoute.tsx` file.
-```jsx
-import { MAINNET_ENDPOINT, MAINNET_USDC_MINT } from '../../utils/constants';
-import { USDCIcon } from '../images/USDCIcon';
-```
-
-In the same file, set the `endpoint` value in the `<ConnectionProvider>` to `MAINNET_ENDPOINT` and set the following values in the `<ConfigProvider>`:
-
-```tsx
-splToken={MAINNET_USDC_MINT}
-symbol="USDC"
-icon={<USDCIcon />}
-decimals={6}
-minDecimals={2}
-```
-
-**Make sure to use 6 decimals for USDC!**
-
-When you're done, it should look like this:
-
-```jsx
-<ConnectionProvider endpoint={MAINNET_ENDPOINT}>
-    <WalletProvider wallets={wallets} autoConnect={connectWallet}>
-        <WalletModalProvider>
-            <ConfigProvider
-                recipient={recipient}
-                label={label}
-                splToken={MAINNET_USDC_MINT}
-                symbol="USDC"
-                icon={<USDCIcon />}
-                decimals={6}
-                minDecimals={2}
-                requiredConfirmations={9}
-                connectWallet={connectWallet}
-            >
-```
-
-## Deploying to Vercel
-
-You can deploy this point of sale app to Vercel with a few clicks. Fork the project and configure it like this:
-
-![Solana Pay Point of Sale app Vercel configuration](solana-pay-point-of-sale-vercel.png)
-
-Once the deployment finishes, navigate to
-```
-https://<YOUR DEPLOYMENT URL>?recipient=<YOUR WALLET ADDRESS>&label=Your+Store+Name
+open "http://localhost:5000"
 ```
 
 ## License
@@ -115,9 +76,8 @@ The Solana Pay Point of Sale app is open source and available under the Apache L
 - Marek [MarekZ](https://github.com/katakumby)
 - Bruno [brunocisowski](https://github.com/brunocisowski)
 - Piotr [PMPSpadlo](https://github.com/PMPSpadlo)
-- Please everyone add commit with your git link
-
-<!-- Links -->
+- Veronika [veronikadumalo](https://github.com/veronikadumalo)
+- Filip [wojcikfil](https://github.com/wojcikfil)
 
 [1]: https://help.phantom.app/hc/en-us/articles/4406388623251-How-to-create-a-new-wallet
 [3]: https://solfaucet.com/
