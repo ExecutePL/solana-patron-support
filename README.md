@@ -67,10 +67,6 @@ npm run dev
 open "http://localhost:5000"
 ```
 
-## License
-
-The Solana Pay Point of Sale app is open source and available under the Apache License, Version 2.0. See the [LICENSE](./LICENSE) file for more info.
-
 ## Contributors
 
 - Marek [MarekZ](https://github.com/katakumby)
