@@ -78,6 +78,8 @@ The Solana Pay Point of Sale app is open source and available under the Apache L
 - Piotr [PMPSpadlo](https://github.com/PMPSpadlo)
 - Veronika [veronikadumalo](https://github.com/veronikadumalo)
 - Filip [wojcikfil](https://github.com/wojcikfil)
+- Kuba [Kubaszenko](https://github.com/Kubaszenko)
+- Maciek [maciumpek](https://github.com/maciumpek)
 
 [1]: https://help.phantom.app/hc/en-us/articles/4406388623251-How-to-create-a-new-wallet
 [3]: https://solfaucet.com/
