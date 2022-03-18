@@ -8,6 +8,7 @@ import { BackIcon } from '../images/BackIcon';
 import { BackspaceIcon } from '../images/BackspaceIcon';
 import * as css from './NumPad.module.pcss';
 import {  useNavigate } from "react-router-dom";
+import { BackButton } from '../buttons/BackButton';
 
 
 interface NumPadInputButton {
@@ -82,7 +83,7 @@ export const NumPad: FC = () => {
             </div>
             
         </div>
-        <Button buttonClassName={css.backButton} onClick={()=>handleBackButton()}><div className={css.buttonContent}><BackIcon/> Back</div></Button>
+        <BackButton onClick={() => handleBackButton()} >Back</BackButton>
         </>
     );
 };

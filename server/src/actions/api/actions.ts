@@ -185,10 +185,10 @@ export class Actions {
 
   static async createTransaction(req: express.Request, res: express.Response) {
     const prisma = new PrismaClient();
-    const { amount, donator_adress, organizationWallet, currencyName } =
+    const { amount, donator_adress, organizationId, currencyName } =
       req.body;
 
-    createTransaction(amount, donator_adress, organizationWallet, currencyName)
+    createTransaction(amount, donator_adress, organizationId, currencyName)
       .then((data) => {
         res.status(200).json();
       })

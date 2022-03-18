@@ -15,6 +15,12 @@ export const Project = () => {
     const [isDonatePopupOpened, setIsDonatePopupOpened] = useState<boolean>(false);
     const [selectedDonationType, setSelectedDonationType] = useState<DonationType>('One-Time Donation');
     const [project, setProject] = useState<ProjectData>();
+    console.log(JSON.stringify({
+        uuid,
+    }),)
+
+    console.log(project)
+
 
     const getProjectsList = async (uuid: string) => {
         const res = await fetch('/api/get/one-organization', {
@@ -90,6 +96,7 @@ export const Project = () => {
                         organizationAdress={project?.adress}
                         organizationLabel={project?.name}
                         selectedOrganizationCurrencies={currenciesOrganization}
+                        organizationId={project?.id}
                     />
                 }
                 isPopupOpened={isDonatePopupOpened}
