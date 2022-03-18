@@ -10,6 +10,7 @@ export type DonationType = any;
 interface DonationProps {
     organizationAdress?: string;
     organizationLabel?: string;
+    organizationId?:number;
     selectedDonationType: DonationType;
     onDonationTypeClick: (type: string) => void;
     selectedOrganizationCurrencies: Array<object>;
@@ -21,6 +22,7 @@ export const Donation = ({
     organizationAdress,
     organizationLabel,
     selectedOrganizationCurrencies,
+    organizationId
 }: DonationProps) => {
     const [currenciesList, setCurrenciesList] = useState([]);
     const getCurrencies = () => {
@@ -33,7 +35,6 @@ export const Donation = ({
     const [selectedCurrenciesList, setSelectedCurrenciesList] = useState<Option[]>([]);
     const [selectedCurreny, setSelectedCurrency] = useState<any>();
     const [radioStatus, setradioStatus] = useState(false);
-    console.log(selectedCurreny);
     const navigate = useNavigate();
 
     const handleSelectedCurrencies = (selectedCurrency: Option) => {
@@ -44,23 +45,16 @@ export const Donation = ({
             case 'One-Time Donation':
                 return currenciesList;
             case 'Colatteral Donation':
-                const list = currenciesList.filter(({ type }) => type === 'colatteral');
-                return list;
+                { 
+                    const list = currenciesList.filter(({ type }) => type === 'colatteral');
+                    return list
+                }
         }
     };
-    const isCollateral = (selectedType: DonationType) => {
-        switch (selectedType.toString()) {
-            case 'One-Time Donation':
-                return currenciesList;
-            case 'Colatteral Donation':
-                const list = currenciesList.filter(({ type }) => type === 'colatteral');
-                return list;
-        }
-    };
+
     useEffect(() => {
-        const test = currencies(selectedDonationType.toString());
-        console.log({ test });
-        currencies(selectedDonationType.toString());
+        const currenciesList = currencies(selectedDonationType.toString());
+        currenciesList && setSelectedCurrenciesList(currenciesList)
     }, [selectedDonationType, currenciesList]);
 
     useEffect(() => {
@@ -73,11 +67,9 @@ export const Donation = ({
 
     const handleDonate = () => {
         const link = `/new?recipient=${organizationAdress}&label=${organizationLabel}
-        &curr=${selectedCurreny[0].name}&decimals=${selectedCurreny[0].decimals}&minDecimals=${selectedCurreny[0].minDecimals}`;
-        console.log(link);
+        &curr=${selectedCurreny[0].name}&decimals=${selectedCurreny[0].decimals}&id=${organizationId}`;
         navigate(link);
     };
-    console.log(currenciesList);
 
     return (
         <div className={css.container}>
@@ -90,7 +82,7 @@ export const Donation = ({
             />
             <div className={css.currencyContainer}>
                 <Select
-                    options={isCollateral(selectedDonationType)}
+                    options={selectedCurrenciesList}
                     selectName="currency"
                     defaultOption="- Select currenies -"
                     title="Currencies: "

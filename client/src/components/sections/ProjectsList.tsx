@@ -47,6 +47,7 @@ export const ProjectsList: FC = () => {
 };
 
 export type ProjectData = {
+    id:number;
     uuid:string;
     foto_src?: string;
     name: string;

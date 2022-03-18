@@ -28,6 +28,7 @@ export const getSingleOrganization = async (uuid: string) => {
       uuid,
     },
     select: {
+      id: true,
       uuid: true,
       name: true,
       description: true,
@@ -195,17 +196,18 @@ export const getTransaction = async () => {
 export const createTransaction = async (
   amount: number,
   donator_adress: string,
-  organizationWallet: string,
+  organizationId: number,
   currencyName: string
 ) => {
-  const organizationId = await prisma.organization.findMany({
-    where: {
-      adress: organizationWallet,
-    },
-    select: {
-      id: true,
-    },
-  });
+  // const organizationId = await prisma.organization.findMany({
+  //   where: {
+  //     uuid: organizationUuid,
+  //   },
+  //   select: {
+  //     id: true,
+  //   },
+  // });
+  // console.log(organizationId)
   const currencyId = await prisma.currency.findMany({
     where: {
       name: currencyName,
@@ -217,7 +219,7 @@ export const createTransaction = async (
 
   await prisma.organization.update({
     where: {
-      id: organizationId[0].id,
+      id: organizationId
     },
     data: {
       total_raised: {
@@ -229,7 +231,7 @@ export const createTransaction = async (
     data: {
       amount,
       donator_adress,
-      organizationId: organizationId[0].id,
+      organizationId: organizationId,
       currencyId: currencyId[0].id,
     },
   });

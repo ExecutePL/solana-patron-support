@@ -171,8 +171,8 @@ class Actions {
     static createTransaction(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const prisma = new client_1.PrismaClient();
-            const { amount, donator_adress, organizationWallet, currencyName } = req.body;
-            (0, index_1.createTransaction)(amount, donator_adress, organizationWallet, currencyName)
+            const { amount, donator_adress, organizationId, currencyName } = req.body;
+            (0, index_1.createTransaction)(amount, donator_adress, organizationId, currencyName)
                 .then((data) => {
                 res.status(200).json();
             })
