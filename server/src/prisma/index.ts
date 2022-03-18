@@ -48,6 +48,21 @@ export const getSingleOrganization = async (uuid: string) => {
           telegram: true,
         },
       },
+      currencies: {
+        select: {
+          currency: {
+            select: {
+              name: true,
+              symbol: true,
+              decimals: true,
+              min_decimals: true,
+              adress: true,
+              foto_src: true,
+              type: true,
+            },
+          },
+        },
+      },
     },
   });
 };

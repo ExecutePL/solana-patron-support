@@ -3,8 +3,12 @@ import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useConfig } from '../../hooks/useConfig';
 import { usePayment } from '../../hooks/usePayment';
 import { Digits } from '../../types';
+import { Button } from '../buttons/Button';
+import { BackIcon } from '../images/BackIcon';
 import { BackspaceIcon } from '../images/BackspaceIcon';
 import * as css from './NumPad.module.pcss';
+import {  useNavigate } from "react-router-dom";
+
 
 interface NumPadInputButton {
     input: Digits | '.';
@@ -21,6 +25,7 @@ const NumPadButton: FC<NumPadInputButton> = ({ input, onInput }) => {
 };
 
 export const NumPad: FC = () => {
+    const navigate = useNavigate();
     const { symbol, decimals } = useConfig();
     const regExp = useMemo(() => new RegExp('^\\d*([.,]\\d{0,' + decimals + '})?$'), [decimals]);
 
@@ -42,7 +47,12 @@ export const NumPad: FC = () => {
     const { setAmount } = usePayment();
     useEffect(() => setAmount(value ? new BigNumber(value) : undefined), [setAmount, value]);
 
+    const handleBackButton = () => {
+        navigate(-1)
+    }
+
     return (
+        <>
         <div className={css.root}>
             <div className={css.text}>Enter amount in {symbol}</div>
             <div className={css.value}>{value}</div>
@@ -70,6 +80,9 @@ export const NumPad: FC = () => {
                     </button>
                 </div>
             </div>
+            
         </div>
+        <Button buttonClassName={css.backButton} onClick={()=>handleBackButton()}><div className={css.buttonContent}><BackIcon/> Back</div></Button>
+        </>
     );
 };
